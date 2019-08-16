@@ -6,4 +6,6 @@
 ## Version 0.1
 ###########################################################
 - Start of development
-- Copied functions AUC, AUC.test, from package MKmisc
+- Copied functions AUC, AUC.test, HLgof.test, optCutoff, 
+  or2rr, pairwise.auc, perfMeasures, perfScores, predValues,
+  risks, rrCI from package MKmisc
