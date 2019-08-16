@@ -6,7 +6,7 @@
 Functions for Statistical Classification.
 }
 \description{
-Contains several functions helpful for statistical classification.
+Contains several functions for statistical classification.
 }
 \details{
 \tabular{ll}{

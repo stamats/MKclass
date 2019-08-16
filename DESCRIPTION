@@ -11,7 +11,7 @@ Depends: R(>= 3.5.0)
 Imports: stats
 Suggests: knitr, rmarkdown, foreach, parallel, doParallel
 VignetteBuilder: knitr
-Description: Contains several functions helpful for statistical classification.
+Description: Contains several functions for statistical classification.
 License: LGPL-3
 URL: http://www.stamats.de/
 
