@@ -1,13 +1,12 @@
 import("stats")
 export(AUC,
        AUC.test,
+       HLgof.test,
        optCutoff,
-       predValues,
+       or2rr,
+       pairwise.auc,
        perfMeasures,
        perfScores,
-       
-       HLgof.test,
-       or2rr,
+       predValues,
        risks,
-       rrCI,
-       pairwise.auc)
+       rrCI)

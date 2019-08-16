@@ -6,7 +6,7 @@
 Functions for Statistical Classification.
 }
 \description{
-Contains several functions for statistical classification.
+Contains several functions helpful for statistical classification.
 }
 \details{
 \tabular{ll}{
@@ -15,8 +15,8 @@ Type: \tab Package\cr
 Version: \tab 0.1\cr
 Date: \tab 2019-08-16\cr
 Depends: \tab R(>= 3.5.0)\cr
-Imports: \tab stats, utils, graphics, grDevices, RColorBrewer, robustbase, ggplot2, scales, limma\cr
-Suggests: \tab gplots, Amelia, knitr, rmarkdown, exactRankTests, foreach, parallel, doParallel\cr
+Imports: \tab stats\cr
+Suggests: \tab knitr, rmarkdown, foreach, parallel, doParallel\cr
 License: \tab LGPL-3\cr
 URL: \tab http://www.stamats.de/\cr
 }
