@@ -1,15 +1,11 @@
-import("stats", "ggplot2")
-importFrom("utils", "combn")
-importFrom("graphics", "layout", "image", "axis", "box", "par")
-importFrom("grDevices", "colorRampPalette")
-importFrom("RColorBrewer", "brewer.pal")
-export(optCutoff,
-       ssize.pcc,
+import("stats")
+export(AUC,
+       AUC.test,
+       optCutoff,
        predValues,
        perfMeasures,
        perfScores,
-       AUC,
-       AUC.test,
+       
        HLgof.test,
        or2rr,
        risks,

@@ -6,3 +6,4 @@
 ## Version 0.1
 ###########################################################
 - Start of development
+- Copied functions AUC, AUC.test, from package MKmisc
