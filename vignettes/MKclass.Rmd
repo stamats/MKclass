@@ -1,0 +1,163 @@
+---
+title: "Package MKclass"
+author: "Matthias Kohl"
+date: "`r Sys.Date()`"
+output: 
+  rmarkdown::html_vignette:
+    toc: true
+vignette: >
+  %\VignetteIndexEntry{MKclass}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{utf8}
+---
+
+
+## Introduction  
+Package MKclass includes a collection of functions that I found useful for 
+statistical classification.
+
+We first load the package.
+```{r}
+library(MKclass)
+```
+
+
+## OR, RR and Other Risk Measures
+Given the incidence of the outcome of interest in the nonexposed (p0) and 
+exposed (p1) group, several risk measures can be computed.
+```{r}
+## Example from Wikipedia
+risks(p0 = 0.4, p1 = 0.1)
+risks(p0 = 0.4, p1 = 0.5)
+```
+
+Given p0 or p1 and OR, we can compute the respective RR.
+```{r}
+or2rr(or = 1.5, p0 = 0.4)
+or2rr(or = 1/6, p1 = 0.1)
+```
+
+There is also a function for computing an approximate confidence interval for 
+the relative risk (RR).
+```{r}
+## Example from Wikipedia
+rrCI(a = 15, b = 135, c = 100, d = 150)
+rrCI(a = 75, b = 75, c = 100, d = 150)
+```
+
+
+## AUC
+### Estimation
+There are two functions that can be used to calculate and test AUC values. First
+function AUC, which computes the area under the receiver operating characteristic 
+curve (AUC under ROC curve) using the connection of AUC to the Wilcoxon rank sum 
+test. We use some random data and groups to demonstrate the use of this function.
+```{r}
+x <- c(runif(50, max = 0.6), runif(50, min = 0.4))
+g <- c(rep(0, 50), rep(1, 50))
+AUC(x, group = g)
+```
+
+Sometimes the labels of the group should be switched to avoid an AUC smaller 
+than 0.5, which represents a result worse than a pure random choice.
+```{r}
+g <- c(rep(1, 50), rep(0, 50))
+AUC(x, group = g)
+## no switching
+AUC(x, group = g, switchAUC = FALSE)
+```
+
+
+### Testing
+We can also perform statistical tests for AUC. First, the one-sample test which
+corresponds to the Wilcoxon signed rank test.
+```{r}
+g <- c(rep(0, 50), rep(1, 50))
+AUC.test(pred1 = x, lab1 = g)
+```
+
+We can also compare two AUC using the test of Hanley and McNeil (1982).
+```{r}
+x2 <- c(runif(50, max = 0.7), runif(50, min = 0.3))
+g2 <- c(rep(0, 50), rep(1, 50))
+AUC.test(pred1 = x, lab1 = g, pred2 = x2, lab2 = g2)
+```
+
+
+### Pairwise
+There is also a function for pairwise comparison if there are more than two 
+groups.
+```{r}
+x3 <- c(x, x2)
+g3 <- c(g, c(rep(2, 50), rep(3, 50)))
+pairwise.auc(x = x3, g = g3)
+```
+
+
+## PPV and NPV
+In case of medical diagnostic tests, usually sensitivity and specificity of
+the tests are known and there is also at least a rough estimate of the 
+prevalence of the tested disease. In the practival application, the positive
+predictive value (PPV) and the negative predictive value are of crucial 
+importance.
+```{r}
+## Example: HIV test 
+## 1. ELISA screening test (4th generation)
+predValues(sens = 0.999, spec = 0.998, prev = 0.001)
+## 2. Western-Plot confirmation test
+predValues(sens = 0.998, spec = 0.999996, prev = 1/3)
+```
+
+
+## Performance Measures and Scores
+In the development of diagnostic tests and more general in binary classification
+a variety of performance measures and scores can be found in literature. Functions 
+perfMeasures and prefScores compute several of them.
+```{r}
+## example from dataset infert
+fit <- glm(case ~ spontaneous+induced, data = infert, family = binomial())
+pred <- predict(fit, type = "response")
+
+## with group numbers
+perfMeasures(pred, truth = infert$case, namePos = 1)
+perfScores(pred, truth = infert$case, namePos = 1)
+
+## with group names
+my.case <- factor(infert$case, labels = c("control", "case"))
+perfMeasures(pred, truth = my.case, namePos = "case")
+perfScores(pred, truth = my.case, namePos = "case")
+
+## using weights
+perfMeasures(pred, truth = infert$case, namePos = 1, weight = 0.3)
+perfScores(pred, truth = infert$case, namePos = 1, weight = 0.3)
+```
+
+## Optimal Cutoff
+The function optCutoff computes the optimal cutoff for various performance 
+measures for binary classification. More precisely, all performance measures 
+that are implemented in function perfMeasures.
+```{r}
+## example from dataset infert
+fit <- glm(case ~ spontaneous+induced, data = infert, family = binomial())
+pred <- predict(fit, type = "response")
+optCutoff(pred, truth = infert$case, namePos = 1)
+```
+The computation of an optimal cut-off doesn't make any sense for continuous 
+scoring rules as their computation does not involve any cut-off 
+(discretization/dichotomization).
+
+## Hosmer-Lemeshow and le Cessie-van Houwelingen-Copas-Hosmer
+These tests are used to investigate the goodness of fit in logistic regression.
+```{r}
+## Hosmer-Lemeshow goodness of fit tests for C and H statistic 
+HLgof.test(fit = pred, obs = infert$case)
+## e Cessie-van Houwelingen-Copas-Hosmer global goodness of fit test
+HLgof.test(fit = pred, obs = infert$case, 
+           X = model.matrix(case ~ spontaneous+induced, data = infert))
+```
+
+
+## sessionInfo
+```{r}
+sessionInfo()
+```
