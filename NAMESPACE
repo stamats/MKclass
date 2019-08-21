@@ -1,6 +1,7 @@
 import("stats")
 export(AUC,
        AUC.test,
+       confMatrix,
        HLgof.test,
        optCutoff,
        or2rr,
