@@ -1,5 +1,4 @@
 import("stats")
-importFrom("MKmisc", "print.confint")
 export(AUC,
        AUC.test,
        HLgof.test,
