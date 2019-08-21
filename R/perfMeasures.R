@@ -1,13 +1,9 @@
 perfMeasures <- function(pred, pred.group, truth, namePos, cutoff = 0.5,
-                         weight = 0.5, wACC = weight, wPV = weight){
-  stopifnot(length(pred) == length(truth))
-  stopifnot(is.numeric(pred))
-  if(!is.factor(truth)) truth <- factor(truth)
-  stopifnot(nlevels(truth) == 2)
-  if(!is.character(namePos)) namePos <- as.character(namePos)
-  stopifnot(namePos %in% levels(truth))
-  stopifnot(is.numeric(cutoff))
-  stopifnot(length(cutoff) == 1)
+                         weight = 0.5, wACC = weight, wPV = weight,
+                         digits = 3){
+  confmat <- confMatrix(pred = pred, pred.group = pred.group, 
+                        truth = truth, namePos = namePos, 
+                        cutoff = cutoff)
   stopifnot(length(weights) == 1)
   stopifnot(length(wACC) == 1)
   stopifnot(length(wPV) == 1)
@@ -15,30 +11,10 @@ perfMeasures <- function(pred, pred.group, truth, namePos, cutoff = 0.5,
   if(wACC < 0 | wACC > 1) stop("'wACC' has to be in [0, 1]")
   if(wPV < 0 | wPV > 1) stop("'wPV' has to be in [0, 1]")
 
-  if(missing(pred.group)){
-    pred.group <- character(length(pred))
-    pred.group[pred >= cutoff] <- namePos
-    nam <- levels(truth)
-    nameNeg <- nam[nam != namePos]
-    pred.group[pred < cutoff] <- nameNeg
-    pred.group <- factor(pred.group)
-    pred.group <- factor(pred.group, levels = c(nameNeg, namePos))
-  }
-  stopifnot(length(pred.group) == length(truth))
-  if(!is.factor(pred.group)) pred.group <- factor(pred.group)
-  stopifnot(nlevels(pred.group) == 2)
-  stopifnot(all(levels(truth) %in% levels(pred.group)))
-  stopifnot(namePos %in% levels(pred.group))
-
-  pred.pos <- pred.group == namePos
-  pred.neg <- pred.group != namePos
-  truth.pos <- truth == namePos
-  truth.neg <- truth != namePos
-  TP <- sum(pred.pos & truth.pos)
-  TN <- sum(pred.neg & truth.neg)
-  FP <- sum(pred.pos & truth.neg)
-  FN <- sum(pred.neg & truth.pos)
-
+  TP <- confmat[1,1]
+  FN <- confmat[2,1]
+  FP <- confmat[1,2]
+  TN <- confmat[2,2]
   ACC <- (TN + TP)/(TP + TN + FP + FN)
   PCC <- ACC
   PMC <- 1 - ACC
@@ -77,5 +53,5 @@ perfMeasures <- function(pred, pred.group, truth, namePos, cutoff = 0.5,
                "F1 score", "Matthews' correlation coefficient (MCC)",
                "proportion of positive predictions",
                "expected accuracy", "Cohen's kappa coefficient", "detection rate")
-  data.frame(Measure = measure, Value = round(value, 3))
+  data.frame(Measure = measure, Value = round(value, digits))
 }

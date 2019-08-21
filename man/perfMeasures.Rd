@@ -7,8 +7,8 @@
 }
 \usage{
 perfMeasures(pred, pred.group, truth, namePos, cutoff = 0.5,
-             weight = 0.5, wACC = weight, wPV = weight)
-perfScores(pred, truth, namePos, weight = 0.5, wBS = weight)
+             weight = 0.5, wACC = weight, wPV = weight, digits = 3)
+perfScores(pred, truth, namePos, weight = 0.5, wBS = weight, digits = 3)
 }
 \arguments{
   \item{pred}{ numeric values that shall be used for classification; e.g. probabilities
@@ -23,6 +23,7 @@ perfScores(pred, truth, namePos, weight = 0.5, wBS = weight)
   \item{wACC}{ weight used for computing the weighted accuracy. Must be in [0,1].}
   \item{wPV}{ weight used for computing the weighted predictive value. Must be in [0,1].}
   \item{wBS}{ weight used for computing the weighted Brier score. Must be in [0,1].}
+  \item{digits}{ integer indicating the number of decimal places returned by applying (round).}
 }
 \details{
   The function \code{perfMeasures} computes various performance measures.

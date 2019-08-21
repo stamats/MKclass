@@ -1,4 +1,5 @@
-perfScores <- function(pred, truth, namePos, weight = 0.5, wBS = weight){
+perfScores <- function(pred, truth, namePos, weight = 0.5, wBS = weight,
+                       digits = 3){
   stopifnot(length(pred) == length(truth))
   stopifnot(is.numeric(pred))
   if(!is.factor(truth)) truth <- factor(truth)
@@ -24,5 +25,5 @@ perfScores <- function(pred, truth, namePos, weight = 0.5, wBS = weight){
   score <- c("area under the ROC curve (AUC)", "Gini index", "Brier score",
                "positive Brier score", "negative Brier score",
                "weighted Brier score", "balanced Brier score")
-  data.frame(Score = score, Value = round(value, 3))
+  data.frame(Score = score, Value = round(value, digits))
 }
