@@ -1,5 +1,5 @@
 Package: MKclass
-Version: 0.1
+Version: 0.2
 Date: 2019-08-16
 Title: Functions for Statistical Classification
 Authors@R: person("Matthias", "Kohl", role = c("aut", "cre"),
@@ -8,7 +8,7 @@ Authors@R: person("Matthias", "Kohl", role = c("aut", "cre"),
 Author: Matthias Kohl [aut, cre] (0000-0001-9514-8910)
 Maintainer: Matthias Kohl <Matthias.Kohl@stamats.de>
 Depends: R(>= 3.5.0)
-Imports: stats
+Imports: stats, MKmisc
 Suggests: knitr, rmarkdown, foreach, parallel, doParallel
 VignetteBuilder: knitr
 Description: Contains several functions for statistical classification.
