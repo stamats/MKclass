@@ -1,5 +1,39 @@
 \name{perfMeasures}
 \alias{perfMeasures}
+\alias{ACC}
+\alias{PCC}
+\alias{PMC}
+\alias{errorRate}
+\alias{sensitivity}
+\alias{specificity}
+\alias{recall}
+\alias{prevalence}
+\alias{NIR}
+\alias{WACC}
+\alias{BACC}
+\alias{informedness}
+\alias{YoudenJ}
+\alias{PLR}
+\alias{NLR}
+\alias{WLR}
+\alias{BLR}
+\alias{PPV}
+\alias{NPV}
+\alias{WPV}
+\alias{BPV}
+\alias{precision}
+\alias{markedness}
+\alias{Fbeta}
+\alias{F1score}
+\alias{DSC}
+\alias{JSC}
+\alias{SMC}
+\alias{RI}
+\alias{MCC}
+\alias{PPP}
+\alias{EACC}
+\alias{kappa}
+\alias{detectionRate}
 \alias{perfScores}
 \title{ Compute Performance Measures and Scores for Binary Classification }
 \description{
@@ -7,7 +41,42 @@
 }
 \usage{
 perfMeasures(pred, pred.group, truth, namePos, cutoff = 0.5,
-             weight = 0.5, wACC = weight, wPV = weight, digits = 3)
+             weight = 0.5, wACC = weight, wLR = weight, 
+             wPV = weight, digits = 3)
+ACC(pred, pred.group, truth, namePos, cutoff = 0.5, digits = 3)
+PCC(pred, pred.group, truth, namePos, cutoff = 0.5, digits = 3)
+PMC(pred, pred.group, truth, namePos, cutoff = 0.5, digits = 3)
+errorRate(pred, pred.group, truth, namePos, cutoff = 0.5, digits = 3)
+sensitivity(pred, pred.group, truth, namePos, cutoff = 0.5, digits = 3)
+specificity(pred, pred.group, truth, namePos, cutoff = 0.5, digits = 3)
+recall(pred, pred.group, truth, namePos, cutoff = 0.5, digits = 3)
+prevalence(pred, pred.group, truth, namePos, cutoff = 0.5, digits = 3)
+NIR(pred, pred.group, truth, namePos, cutoff = 0.5, digits = 3)
+WACC(pred, pred.group, truth, namePos, cutoff = 0.5, digits = 3, weight = 0.5) 
+BACC(pred, pred.group, truth, namePos, cutoff = 0.5, digits = 3)
+informedness(pred, pred.group, truth, namePos, cutoff = 0.5, digits = 3)
+YoudenJ(pred, pred.group, truth, namePos, cutoff = 0.5, digits = 3)
+PLR(pred, pred.group, truth, namePos, cutoff = 0.5, digits = 3)
+NLR(pred, pred.group, truth, namePos, cutoff = 0.5, digits = 3)
+WLR(pred, pred.group, truth, namePos, cutoff = 0.5, digits = 3, weight = 0.5)
+BLR(pred, pred.group, truth, namePos, cutoff = 0.5, digits = 3)
+PPV(pred, pred.group, truth, namePos, cutoff = 0.5, digits = 3)
+NPV(pred, pred.group, truth, namePos, cutoff = 0.5, digits = 3)
+WPV(pred, pred.group, truth, namePos, cutoff = 0.5, digits = 3, weight = 0.5)
+BPV(pred, pred.group, truth, namePos, cutoff = 0.5, digits = 3, weight = 0.5)
+precision(pred, pred.group, truth, namePos, cutoff = 0.5, digits = 3)
+markedness(pred, pred.group, truth, namePos, cutoff = 0.5, digits = 3)
+Fbeta(pred, pred.group, truth, namePos, cutoff = 0.5, digits = 3, beta = 1)
+F1score(pred, pred.group, truth, namePos, cutoff = 0.5, digits = 3)
+DSC(pred, pred.group, truth, namePos, cutoff = 0.5, digits = 3)
+JSC(pred, pred.group, truth, namePos, cutoff = 0.5, digits = 3)
+SMC(pred, pred.group, truth, namePos, cutoff = 0.5, digits = 3)
+RI(pred, pred.group, truth, namePos, cutoff = 0.5, digits = 3)
+MCC(pred, pred.group, truth, namePos, cutoff = 0.5, digits = 3)
+PPP(pred, pred.group, truth, namePos, cutoff = 0.5, digits = 3)
+EACC(pred, pred.group, truth, namePos, cutoff = 0.5, digits = 3)
+kappa(pred, pred.group, truth, namePos, cutoff = 0.5, digits = 3)
+detectionRate(pred, pred.group, truth, namePos, cutoff = 0.5, digits = 3)
 perfScores(pred, truth, namePos, weight = 0.5, wBS = weight, digits = 3)
 }
 \arguments{
@@ -20,22 +89,29 @@ perfScores(pred, truth, namePos, weight = 0.5, wBS = weight, digits = 3)
   \item{namePos}{ value representing the positive group.}
   \item{cutoff}{ cutoff value used for classification.}
   \item{weight}{ weight used for computing weighted values. Must be in [0,1].}
-  \item{wACC}{ weight used for computing the weighted accuracy. Must be in [0,1].}
-  \item{wPV}{ weight used for computing the weighted predictive value. Must be in [0,1].}
-  \item{wBS}{ weight used for computing the weighted Brier score. Must be in [0,1].}
+  \item{wACC}{ weight used for computing the weighted accuracy, where sensitivity is multiplied by \code{wACC} and specificity by \code{1-wACC}. Must be in [0,1].}
+  \item{wLR}{ weight used for computing the weighted likelihood ratio, where PLR is multiplied by \code{wLR} and NLR by \code{1-wLR}. Must be in [0,1].}
+  \item{wPV}{ weight used for computing the weighted predictive value, where PPV is multiplied by \code{wPV} and NPV by \code{1-wPV}. Must be in [0,1].}
+  \item{wBS}{ weight used for computing the weighted Brier score (BS), where
+postive BS is multiplied by \code{wBS} and negative BS by \code{1-wBS}. Must be in [0,1].}
   \item{digits}{ integer indicating the number of decimal places returned by applying (round).}
 }
 \details{
   The function \code{perfMeasures} computes various performance measures.
   The measures are:
   accuracy (ACC), probabiliy of correct classification (PCC), probability of
-  missclassification (PMC), error rate, sensitivity, specificity, prevalence,
-  no information rate, weighted accuracy (wACC), balanced accuracy (BACC),
-  informedness, Youden's J statistic, positive likelihood ratio (PLR),
-  negative likelihood ratio (NLR), positive predictive value (PPV),
-  negative predictive value (NPV), markedness, weighted predictive value,
-  balanced predictive value, F1 score, Matthews' correlation
-  coefficient (MCC), proportion of positive predictions, expected accuracy,
+  missclassification (PMC), error rate, sensitivity, specificity, recall, 
+  prevalence, no information rate (NIR), 
+  weighted accuracy (wACC), balanced accuracy (BACC),
+  (Bookmarker) informedness, Youden's J statistic, 
+  positive likelihood ratio (PLR), negative likelihood ratio (NLR), 
+  weighted likelihood ratio (WLR), balanced likelihood ratio (BLR), 
+  positive predictive value (PPV), negative predictive value (NPV),
+  weighted predictive value (WPV), balanced predictive value (BPV), 
+  precision, markedness, Fbeta score, F1 score, 
+  Dice similarity coefficient (DSC), Jaccard similarity coefficient (JSC),
+  Rand index (RI), Matthews' correlation coefficient (MCC),
+  proportion of positive predictions (PPP), expected accuracy (EACC),
   Cohen's kappa coefficient, and detection rate.
 
   These performance measures have in common that they require a dichotomization
