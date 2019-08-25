@@ -34,10 +34,9 @@
 \alias{EACC}
 \alias{kappa}
 \alias{detectionRate}
-\alias{perfScores}
-\title{ Compute Performance Measures and Scores for Binary Classification }
+\title{ Compute Performance Measures or Binary Classification }
 \description{
-  The function computes various performance weasures and scores for binary classification.
+  The function computes various performance measures for binary classification.
 }
 \usage{
 perfMeasures(pred, pred.group, truth, namePos, cutoff = 0.5,
@@ -77,7 +76,6 @@ PPP(pred, pred.group, truth, namePos, cutoff = 0.5, digits = 3)
 EACC(pred, pred.group, truth, namePos, cutoff = 0.5, digits = 3)
 kappa(pred, pred.group, truth, namePos, cutoff = 0.5, digits = 3)
 detectionRate(pred, pred.group, truth, namePos, cutoff = 0.5, digits = 3)
-perfScores(pred, truth, namePos, weight = 0.5, wBS = weight, digits = 3)
 }
 \arguments{
   \item{pred}{ numeric values that shall be used for classification; e.g. probabilities
@@ -92,8 +90,6 @@ perfScores(pred, truth, namePos, weight = 0.5, wBS = weight, digits = 3)
   \item{wACC}{ weight used for computing the weighted accuracy, where sensitivity is multiplied by \code{wACC} and specificity by \code{1-wACC}. Must be in [0,1].}
   \item{wLR}{ weight used for computing the weighted likelihood ratio, where PLR is multiplied by \code{wLR} and NLR by \code{1-wLR}. Must be in [0,1].}
   \item{wPV}{ weight used for computing the weighted predictive value, where PPV is multiplied by \code{wPV} and NPV by \code{1-wPV}. Must be in [0,1].}
-  \item{wBS}{ weight used for computing the weighted Brier score (BS), where
-postive BS is multiplied by \code{wBS} and negative BS by \code{1-wBS}. Must be in [0,1].}
   \item{digits}{ integer indicating the number of decimal places returned by applying (round).}
 }
 \details{
@@ -116,24 +112,12 @@ postive BS is multiplied by \code{wBS} and negative BS by \code{1-wBS}. Must be 
 
   These performance measures have in common that they require a dichotomization
   (discretization) of a computed continuous classification function.
-
-  The function \code{perfScores} computes various performance Scores.
-  The scores are:
-  area under the ROC curve (AUC), Gini index, Brier score, positive Brier score,
-  negative Brier score, weighted Brier score, and balanced Brier score.
-
-  If the predictions (\code{pred}) are not in the interval [0,1] the standard
-  logistic function is applied to transform the values of \code{pred - cutoff}
-  to [0,1].
 }
 \value{
-  \code{data.frame} with names of the performance measures, respectivey scores
-  and their respective values.
+  \code{data.frame} with names of the performance measures and their 
+  respective values.
 }
 \references{
-  G.W. Brier (1950). Verification of forecasts expressed in terms of probability.
-  \emph{Mon. Wea. Rev.} \bold{78}, 1-3.
-
   K.H. Brodersen, C.S. Ong, K.E. Stephan, J.M. Buhmann (2010). The balanced
   accuracy and its posterior distribution. In \emph{Pattern Recognition} (ICPR),
   20th International Conference on, 3121-3124 (IEEE, 2010).
@@ -150,11 +134,6 @@ postive BS is multiplied by \code{wBS} and negative BS by \code{1-wBS}. Must be 
   D. Hand, R. Till (2001). A simple generalisation of the area under the ROC
   curve for multiple class classification problems.
   \emph{Machine Learning} \bold{45}, 171-186.
-
-  J. Hernandez-Orallo, P.A. Flach, C. Ferri (2011). Brier curves: a new cost-
-  based visualisation of classifier performance. In L. Getoor and T. Scheffer (eds.)
-  \emph{Proceedings of the 28th International Conference on Machine Learning} (ICML-11),
-  585???592 (ACM, New York, NY, USA).
 
   J. Hernandez-Orallo, P.A. Flach, C. Ferri (2012). A unified view of performance
   metrics: Translating threshold choice into expected classification loss.
@@ -186,20 +165,16 @@ pred <- predict(fit, type = "response")
 
 ## with group numbers
 perfMeasures(pred, truth = infert$case, namePos = 1)
-perfScores(pred, truth = infert$case, namePos = 1)
 
 ## with group names
 my.case <- factor(infert$case, labels = c("control", "case"))
 perfMeasures(pred, truth = my.case, namePos = "case")
-perfScores(pred, truth = my.case, namePos = "case")
 
 ## on the scale of the linear predictors
 pred2 <- predict(fit)
 perfMeasures(pred2, truth = infert$case, namePos = 1, cutoff = 0)
-perfScores(pred2, truth = infert$case, namePos = 1)
 
 ## using weights
 perfMeasures(pred, truth = infert$case, namePos = 1, weight = 0.3)
-perfScores(pred, truth = infert$case, namePos = 1, weight = 0.3)
 }
 \keyword{univar}
