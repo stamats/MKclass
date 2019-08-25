@@ -27,3 +27,7 @@ perfScores <- function(pred, truth, namePos, weight = 0.5, wBS = weight,
                "weighted Brier score", "balanced Brier score")
   data.frame(Score = score, Value = round(value, digits))
 }
+
+brierScore <- function(pred, truth, namePos, digits = 3){
+  
+}

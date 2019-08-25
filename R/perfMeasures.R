@@ -1,6 +1,7 @@
 perfMeasures <- function(pred, pred.group, truth, namePos, cutoff = 0.5,
                          weight = 0.5, wACC = weight, wLR = weight, 
-                         wPV = weight, beta = 1, digits = 3){
+                         wPV = weight, beta = 1, digits = 3, 
+                         measures = "all"){
   confmat <- confMatrix(pred = pred, pred.group = pred.group, 
                         truth = truth, namePos = namePos, 
                         cutoff = cutoff)
@@ -15,19 +16,97 @@ perfMeasures <- function(pred, pred.group, truth, namePos, cutoff = 0.5,
   if(wPV < 0 | wPV > 1) stop("'wPV' has to be in [0, 1]")
   if(beta < 0) stop("'beta' has to be nonnegative")
 
+  measureNames <- NULL
+  measureValues <- NULL
+  if(measures == "all"){
+    measures <- c("ACC", "PCC", "FC", "SMC", "RSI")
+  }
   TP <- confmat[1,1]
   FN <- confmat[2,1]
   FP <- confmat[1,2]
   TN <- confmat[2,2]
-  ACC <- (TN + TP)/(TP + TN + FP + FN)
-  PCC <- ACC
-  PMC <- 1 - ACC
-  ERATE <- PMC
-  SENS <- TP/(TP + FN)
-  REC <- SENS
-  SPEC <- TN/(TN + FP)
-  PREV <- (TP + FN)/(TP + TN + FP + FN)
-  NIR <- max(PREV, 1-PREV)
+  if("ACC" %in% measures){ 
+    ACC <- (TN + TP)/(TP + TN + FP + FN)
+    measureNames <- c(measureNames, "accuracy (ACC)")
+    measureValues <- c(measureValues, ACC)
+  }
+  if("PCC" %in% measures){ 
+    PCC <- (TN + TP)/(TP + TN + FP + FN)
+    measureNames <- c(measureNames, "probability of correct classification (PCC)")
+    measureValues <- c(measureValues, PCC)
+  }
+  if("FC" %in% measures){ 
+    FC <- (TN + TP)/(TP + TN + FP + FN)
+    measureNames <- c(measureNames, "fraction correct (FC)")
+    measureValues <- c(measureValues, FC)
+  }
+  if("SMC" %in% measures){ 
+    SMC <- (TN + TP)/(TP + TN + FP + FN)
+    measureNames <- c(measureNames, "simple matching coefficient (SMC)")
+    measureValues <- c(measureValues, SMC)
+  }
+  if("RSI" %in% measures){ 
+    RSI <- (TN + TP)/(TP + TN + FP + FN)
+    measureNames <- c(measureNames, "Rand (similarity) index (RSI)")
+    measureValues <- c(measureValues, RSI)
+  }
+  if("PMC" %in% measures){ 
+    PMC <- 1 - (TN + TP)/(TP + TN + FP + FN)
+    measureNames <- c(measureNames, "probability of misclassification (PMC)")
+    measureValues <- c(measureValues, PMC)
+  }
+  if("ER" %in% measures){ 
+    ER <- 1 - (TN + TP)/(TP + TN + FP + FN)
+    measureNames <- c(measureNames, "error rate (ER)")
+    measureValues <- c(measureValues, ER)
+  }
+  if("FIC" %in% measures){ 
+    FIC <- 1 - (TN + TP)/(TP + TN + FP + FN)
+    measureNames <- c(measureNames, "fraction incorrect (FIC)")
+    measureValues <- c(measureValues, FIC)
+  }
+  if("SENS" %in% measures){ 
+    SENS <- TP/(TP + FN)
+    measureNames <- c(measureNames, "sensitivity (SENS)")
+    measureValues <- c(measureValues, SENS)
+  }
+  if("REC" %in% measures){ 
+    REC <- TP/(TP + FN)
+    measureNames <- c(measureNames, "recall (REC)")
+    measureValues <- c(measureValues, REC)
+  }
+  if("TPR" %in% measures){ 
+    TPR <- TP/(TP + FN)
+    measureNames <- c(measureNames, "true positive rate (TPR)")
+    measureValues <- c(measureValues, TPR)
+  }
+  if("HR" %in% measures){ 
+    HR <- TP/(TP + FN)
+    measureNames <- c(measureNames, "hit rate (HR)")
+    measureValues <- c(measureValues, HR)
+  }
+  if("SPEC" %in% measures){ 
+    SPEC <- TN/(TN + FP)
+    measureNames <- c(measureNames, "specificity (SPEC)")
+    measureValues <- c(measureValues, SPEC)
+  }
+  if("TNR" %in% measures){ 
+    TNR <- TN/(TN + FP)
+    measureNames <- c(measureNames, "true negative rate (TNR)")
+    measureValues <- c(measureValues, TNR)
+  }
+  if("PREV" %in% measures){ 
+    PREV <- (TP + FN)/(TP + TN + FP + FN)
+    measureNames <- c(measureNames, "prevalence (PREV)")
+    measureValues <- c(measureValues, PREV)
+  }
+  if("NIR" %in% measures){ 
+    PREV <- (TP + FN)/(TP + TN + FP + FN)
+    NIR <- max(PREV, 1-PREV)
+    measureNames <- c(measureNames, "no information rate (NIR)")
+    measureValues <- c(measureValues, NIR)
+  }
+  
   BACC <- 0.5*SENS + 0.5*SPEC
   WACC <- wACC*SENS + (1-wACC)*SPEC
   INF <- SENS + SPEC - 1
@@ -46,13 +125,23 @@ perfMeasures <- function(pred, pred.group, truth, namePos, cutoff = 0.5,
   DSC <- F1
   Fbeta <- (1+beta^2)*PPV*SENS/(beta^2*PPV + SENS)
   JACC <- TP/(TP + FP + FN)
-  SMC <- ACC
-  RI <- ACC
   MCC <- sign(INF)*sqrt(INF*MARK)
   PPP <- (TP + FP)/(TP + TN + FP + FN)
   EACC <- PREV*PP + (1 - PREV)*(1 - PP)
   COHEN <- (ACC - EACC)/(1-EACC)
   DR <- TP/(TP + TN + FP + FN)
+  FNR <- FN/(TP+FN)
+  FPR <- FP/(TN+FP)
+  FDR <- FP/(TP+FP)
+  FOR <- FN/(TN+FN)
+  DOR <- PLR/NLR
+  FA <- FP/(TP+FP) # false alarm
+  ## detection prevalence
+  ## UC <- uncertainty coefficient
+  ## https://en.wikipedia.org/wiki/Binary_classification
+  ## DescTools::UncertCoef
+  ## https://cube.dev/blog/bayesian-learning-for-statistical-classification/
+  ## https://scikit-learn.org/stable/modules/model_evaluation.html
   value <- c(ACC, PCC, PMC, ERATE, SENS, SPEC, REC, PREV, NIR, WACC, BACC, INF, 
              YOUDEN, PLR, NLR, WLR, BLR, PPV, NPV, WPV, BPV, PREC, MARK, 
              Fbeta, F1, DSC, JACC, SMC, RI, MCC, PPP, EACC, COHEN, DR)
