@@ -1,4 +1,5 @@
-confMatrix <- function(pred, pred.group, truth, namePos, cutoff = 0.5){
+confMatrix <- function(pred, pred.group, truth, namePos, cutoff = 0.5,
+                       relative = TRUE){
   stopifnot(length(pred) == length(truth))
   stopifnot(is.numeric(pred))
   if(!is.factor(truth)) truth <- factor(truth)
@@ -32,9 +33,36 @@ confMatrix <- function(pred, pred.group, truth, namePos, cutoff = 0.5){
   FP <- sum(pred.pos & truth.neg)
   FN <- sum(pred.neg & truth.pos)
   
-  res <- matrix(c(TP, FN, FP, TN), ncol = 2)
-  colnames(res) <- c("Truth positive", "Truth negative")
-  rownames(res) <- c("Prediction positive", "Prediction negative")
+  res.abs <- matrix(c(TP, FN, FP, TN), ncol = 2)
+  colnames(res.abs) <- c("Truth positive", "Truth negative")
+  rownames(res.abs) <- c("Prediction positive", "Prediction negative")
+
+  res.rel <- t(t(res.abs)/colSums(res.abs))
+  
+  if(relative){
+    res <- list("absolute numbers" = res.abs,
+                "relative numbers" = res.rel)
+  }else{
+    res <- res.abs
+  }
+  class(res) <- "confMatrix"
   
   return(res)
+}
+print.confMatrix <- function(x, digits = getOption("digits"), prefix = "\t\t", ...){
+  cat("\n")
+  cat(strwrap("Confusion Matrix", prefix = prefix), sep = "\n")
+  cat(strwrap("----------------", prefix = prefix), sep = "\n")
+  cat("\n")
+  if(is.matrix(x)) print(x)
+  if(is.list(x)){
+    cat(strwrap("Absolute numbers", prefix = prefix), sep = "\n")
+    cat("\n")
+    print(x[[1]], digits = digits, ...)
+    cat("\n\n")
+    cat(strwrap("Relative numbers", prefix = prefix), sep = "\n")
+    cat("\n")
+    print(x[[2]], digits = digits, ...)
+  }
+  invisible(x)
 }
