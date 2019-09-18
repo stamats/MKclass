@@ -1,6 +1,6 @@
 Package: MKclass
 Version: 0.2
-Date: 2019-08-16
+Date: 2019-09-18
 Title: Functions for Statistical Classification
 Authors@R: person("Matthias", "Kohl", role = c("aut", "cre"),
                   email = "Matthias.Kohl@stamats.de", 
