@@ -5,7 +5,7 @@
   The function computes the confusion matrix of a binary classification.
 }
 \usage{
-confMatrix(pred, pred.group, truth, namePos, cutoff = 0.5)
+confMatrix(pred, pred.group, truth, namePos, cutoff = 0.5, relative = TRUE)
 }
 \arguments{
   \item{pred}{ numeric values that shall be used for classification; e.g. probabilities
@@ -16,14 +16,20 @@ confMatrix(pred, pred.group, truth, namePos, cutoff = 0.5)
   \item{truth}{ true grouping vector or factor. }
   \item{namePos}{ value representing the positive group.}
   \item{cutoff}{ cutoff value used for classification.}
+  \item{relative}{ logical: absolute and relative values.}
 }
 \details{
   The function computes the confusion matrix of a binary classification
   consisting of the number of true positive (TP), false negative (FN),
   false positive (FP) and true negative (TN) predictions.
+  
+  In addition, their relative counterparts true positive rate (TPR), false 
+  negative rate (FNR), false positive rate (FPR) and true negative rate (TNR) 
+  can be computed.
 }
 \value{
-  \code{matrix} with respective numbers of true and false predictions.
+  \code{matrix} or \code{list} of matrices with respective numbers of true 
+  and false predictions.
 }
 \references{
   Wikipedia contributors. (2019, July 18). Confusion matrix. In Wikipedia, 
@@ -46,5 +52,8 @@ confMatrix(pred, truth = my.case, namePos = "case")
 ## on the scale of the linear predictors
 pred2 <- predict(fit)
 confMatrix(pred2, truth = infert$case, namePos = 1, cutoff = 0)
+
+## only absolute numbers
+confMatrix(pred, truth = infert$case, namePos = 1, relative = FALSE)
 }
 \keyword{univar}
