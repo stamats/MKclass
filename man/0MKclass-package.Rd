@@ -12,9 +12,9 @@ Contains several functions for statistical classification.
 \tabular{ll}{
 Package: \tab MKclass\cr
 Type: \tab Package\cr
-Version: \tab 0.1\cr
-Date: \tab 2019-08-16\cr
-Depends: \tab R(>= 3.5.0)\cr
+Version: \tab 0.2\cr
+Date: \tab 2019-09-19\cr
+Depends: \tab R(>= 3.5.0), MKmisc\cr
 Imports: \tab stats\cr
 Suggests: \tab knitr, rmarkdown, foreach, parallel, doParallel\cr
 License: \tab LGPL-3\cr
