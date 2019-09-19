@@ -1,7 +1,7 @@
 optCutoff <- function(pred, truth, namePos,
-                      perfMeasure = "Youden's J statistic",
+                      perfMeasure = "YJS",
                       max = TRUE, parallel = FALSE, ncores,
-                      delta = 0.01){
+                      delta = 0.01, ...){
   stopifnot(length(pred) == length(truth))
   stopifnot(is.numeric(pred))
   if(!is.factor(truth)) truth <- factor(truth)
@@ -11,9 +11,9 @@ optCutoff <- function(pred, truth, namePos,
 
   W <- range(pred)
   cutoffs <- c(W[1]-delta, pred, W[2]+delta)
-  perf1 <- perfMeasures(pred = pred, truth = truth, namePos = namePos,
-                        cutoff = cutoffs[1])
-  ind.perf <- which(perf1[,1] == perfMeasure)
+#  perf1 <- perfMeasures(pred = pred, truth = truth, namePos = namePos,
+#                        cutoff = cutoffs[1])
+#  ind.perf <- which(perf1[,1] == perfMeasure)
   if(parallel){
     stopifnot(requireNamespace("foreach", quietly = TRUE))
     stopifnot(requireNamespace("parallel", quietly = TRUE))
@@ -27,16 +27,17 @@ optCutoff <- function(pred, truth, namePos,
     doParallel::registerDoParallel(cl)
     `%dopar%` <- foreach::`%dopar%`
     perfs <- foreach::foreach(i = seq_along(cutoffs)) %dopar% {
-      MKmisc::perfMeasures(pred = pred, truth = truth, namePos = namePos,
-                           cutoff = cutoffs[i])[ind.perf,2]
+      MKclass::perfMeasures(pred = pred, truth = truth, namePos = namePos,
+                           cutoff = cutoffs[i], measures = perfMeasure, ...)[1,2]
     }
     parallel::stopCluster(cl)
   }else{
     perfs <- numeric(length(cutoffs))
     for(i in seq_along(cutoffs)){
-      perfs[i] <- MKmisc::perfMeasures(pred = pred, truth = truth,
-                                       namePos = namePos,
-                                       cutoff = cutoffs[i])[ind.perf, 2]
+      perfs[i] <- perfMeasures(pred = pred, truth = truth,
+                               namePos = namePos,
+                               cutoff = cutoffs[i], 
+                               measures = perfMeasure, ...)[1,2]
     }
   }
   if(max){
