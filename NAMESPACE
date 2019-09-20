@@ -21,6 +21,7 @@ export(AUC,
        MCC, RPHI, PHIC, CRV, PPP, EACC, CKC, 
        MI2, JE2, VI2, JD, INFQR, UC, EC, PROF, DFM,
        RED, SU, NU,
+       AUC, GINI, BS, PBS, NBS, WBS, BBS,
        risks,
        rrCI)
 S3method(print, confMatrix)

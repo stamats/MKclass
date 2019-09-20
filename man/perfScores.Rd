@@ -5,27 +5,33 @@
   The function computes various performance scores for binary classification.
 }
 \usage{
-perfScores(pred, truth, namePos, weight = 0.5, wBS = weight, digits = 3)
+perfScores(pred, truth, namePos, wBS = 0.5, digits = 3, scores = "all")
 }
 \arguments{
   \item{pred}{ numeric values that shall be used for classification; e.g. probabilities
   to belong to the positive group. }
   \item{truth}{ true grouping vector or factor. }
   \item{namePos}{ value representing the positive group.}
-  \item{weight}{ weight used for computing weighted values. Must be in [0,1].}
   \item{wBS}{ weight used for computing the weighted Brier score (BS), where
 postive BS is multiplied by \code{wBS} and negative BS by \code{1-wBS}. Must be in [0,1].}
   \item{digits}{ integer indicating the number of decimal places returned by applying (round).}
+  \item{scores}{ character vector giving the scores that shall be computed;
+  see details. Default \code{"all"} computes all scores available.}
 }
 \details{
-  The function \code{perfScores} computes various performance Scores.
-  The scores are:
-  area under the ROC curve (AUC), Gini index, Brier score, positive Brier score,
-  negative Brier score, weighted Brier score, and balanced Brier score.
+  The function \code{perfScores} can be used to compute various performance 
+  scores. For computing specific scores, the abbreviation given in 
+  parentheses have to be specified in argument \code{scores}. Single scores
+  can also be computed by respective functions, where their names are identical
+  to the abbreviations given in the parentheses.
+
+  The available scores are:
+  area under the ROC curve (AUC), Gini index (GINI), Brier score (BS), 
+  positive Brier score (PBS), negative Brier score (NBS), 
+  weighted Brier score (WBS), balanced Brier score (BBS.
 
   If the predictions (\code{pred}) are not in the interval [0,1] the standard
-  logistic function is applied to transform the values of \code{pred - cutoff}
-  to [0,1].
+  logistic function is applied to transform the values of \code{pred} to [0,1].
 }
 \value{
   \code{data.frame} with names of the scores and their respective values.
@@ -58,6 +64,9 @@ postive BS is multiplied by \code{wBS} and negative BS by \code{1-wBS}. Must be 
   Protein Structure \bold{405}, 442-451.
 }
 \author{ Matthias Kohl \email{Matthias.Kohl@stamats.de}}
+\seealso{
+\code{\link{perfMeasures}}
+}
 \examples{
 ## example from dataset infert
 fit <- glm(case ~ spontaneous+induced, data = infert, family = binomial())
@@ -75,6 +84,6 @@ pred2 <- predict(fit)
 perfScores(pred2, truth = infert$case, namePos = 1)
 
 ## using weights
-perfScores(pred, truth = infert$case, namePos = 1, weight = 0.3)
+perfScores(pred, truth = infert$case, namePos = 1, wBS = 0.3)
 }
 \keyword{univar}
