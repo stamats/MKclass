@@ -6,9 +6,9 @@
 ## Version 0.2
 ###########################################################
 - Added several performance measures to function perfMeasures
-- Changed the structure of function perfMeasures and perfScores
-- New function confMatrix, to compute confusion matrix including a print
-  method.
+- Changed the structure of functions perfMeasures and perfScores
+- New function confMatrix, to compute confusion matrix including 
+  a print method.
 
 ###########################################################
 ## Version 0.1
