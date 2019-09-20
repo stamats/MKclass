@@ -132,7 +132,7 @@ perfMeasures(pred, pred.group, truth, namePos, cutoff = 0.5,
 }
 \author{ Matthias Kohl \email{Matthias.Kohl@stamats.de}}
 \seealso{
-\code{\code{\link{confMatrix}, \code{\link{predValues}, \code{\link{perfScores}}
+\code{\link{confMatrix}}, \code{\link{predValues}}, \code{\link{perfScores}}
 }
 \examples{
 ## example from dataset infert
