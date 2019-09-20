@@ -54,7 +54,11 @@ print.confMatrix <- function(x, digits = getOption("digits"), prefix = "\t\t", .
   cat(strwrap("Confusion Matrix", prefix = prefix), sep = "\n")
   cat(strwrap("----------------", prefix = prefix), sep = "\n")
   cat("\n")
-  if(is.matrix(x)) print(x)
+  if(is.matrix(x)){ 
+    xPr <- x
+    class(xPr) <- NULL
+    print(xPr, digits = digits, ...)
+  }
   if(is.list(x)){
     cat(strwrap("Absolute numbers", prefix = prefix), sep = "\n")
     cat("\n")
