@@ -129,7 +129,7 @@ perfScores(pred, truth = my.case, namePos = "case")
 
 ## using weights
 perfMeasures(pred, truth = infert$case, namePos = 1, weight = 0.3)
-perfScores(pred, truth = infert$case, namePos = 1, weight = 0.3)
+perfScores(pred, truth = infert$case, namePos = 1, wBS = 0.3)
 ```
 
 ## Optimal Cutoff
