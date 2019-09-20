@@ -1162,10 +1162,10 @@ DSC <- function(pred, pred.group, truth, namePos, cutoff = 0.5,
   res
 }
 FBS <- function(pred, pred.group, truth, namePos, cutoff = 0.5,
-                digits = 3){
+                digits = 3, beta = 1){
   tmp <- perfMeasures(pred = pred, pred.group = pred.group, truth = truth,
                       namePos = namePos, cutoff = cutoff, digits = digits,
-                      measures = "FBS")
+                      measures = "FBS", beta = beta)
   res <- tmp[1,2]
   names(res) <- tmp[1,1]
   res
