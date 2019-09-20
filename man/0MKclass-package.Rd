@@ -13,8 +13,8 @@ Contains several functions for statistical classification.
 Package: \tab MKclass\cr
 Type: \tab Package\cr
 Version: \tab 0.2\cr
-Date: \tab 2019-09-19\cr
-Depends: \tab R(>= 3.5.0), MKmisc\cr
+Date: \tab 2019-09-20\cr
+Depends: \tab R(>= 3.5.0)\cr
 Imports: \tab stats\cr
 Suggests: \tab knitr, rmarkdown, foreach, parallel, doParallel\cr
 License: \tab LGPL-3\cr
