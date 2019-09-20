@@ -11,9 +11,6 @@ optCutoff <- function(pred, truth, namePos,
 
   W <- range(pred)
   cutoffs <- c(W[1]-delta, pred, W[2]+delta)
-#  perf1 <- perfMeasures(pred = pred, truth = truth, namePos = namePos,
-#                        cutoff = cutoffs[1])
-#  ind.perf <- which(perf1[,1] == perfMeasure)
   if(parallel){
     stopifnot(requireNamespace("foreach", quietly = TRUE))
     stopifnot(requireNamespace("parallel", quietly = TRUE))
