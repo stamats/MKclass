@@ -2,7 +2,7 @@ year <- sub("-.*", "", meta$Date)
 note <- sprintf("R package version %s", meta$Version)
 
 bibentry(bibtype="Manual",
-         title = "{MKclass: Functions for Statistical Classification}",
+         title = "{MKclass: Statistical Classification}",
          author = person("Matthias", "Kohl"),
          language = "English",
          year = year,

@@ -3,17 +3,17 @@
 \alias{MKclass}
 \docType{package}
 \title{
-Functions for Statistical Classification.
+Statistical Classification.
 }
 \description{
-Contains several functions for statistical classification.
+Functions for statistical classification such as computing performance measures and scores.
 }
 \details{
 \tabular{ll}{
 Package: \tab MKclass\cr
 Type: \tab Package\cr
 Version: \tab 0.2\cr
-Date: \tab 2019-09-20\cr
+Date: \tab 2019-11-08\cr
 Depends: \tab R(>= 3.5.0)\cr
 Imports: \tab stats\cr
 Suggests: \tab knitr, rmarkdown, foreach, parallel, doParallel\cr
