@@ -7,15 +7,15 @@
 }
 \usage{
 optCutoff(pred, truth, namePos, perfMeasure = "YJS",
-          max = TRUE, parallel = FALSE, ncores, delta = 0.01, ...)
+          MAX = TRUE, parallel = FALSE, ncores, delta = 0.01, ...)
 }
 \arguments{
   \item{pred}{ numeric values that shall be used for classification; e.g. probabilities
   to belong to the positive group. }
   \item{truth}{ true grouping vector or factor. }
   \item{namePos}{ value representing the positive group.}
-  \item{perfMeasure}{ a performance measure computed by function \code{perfMeasure}.}
-  \item{max}{logical value. Whether to maximize or minimize the performacne
+  \item{perfMeasure}{ a single performance measure computed by function \code{perfMeasure}.}
+  \item{MAX}{logical value. Whether to maximize or minimize the performacne
   measure.}
   \item{parallel}{ logical value. If \code{TRUE} packages foreach and doParallel
   are used to parallelize the computations.}

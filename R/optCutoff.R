@@ -1,6 +1,6 @@
 optCutoff <- function(pred, truth, namePos,
                       perfMeasure = "YJS",
-                      max = TRUE, parallel = FALSE, ncores,
+                      MAX = TRUE, parallel = FALSE, ncores,
                       delta = 0.01, ...){
   stopifnot(length(pred) == length(truth))
   stopifnot(is.numeric(pred))
@@ -8,6 +8,7 @@ optCutoff <- function(pred, truth, namePos,
   stopifnot(nlevels(truth) == 2)
   if(!is.character(namePos)) namePos <- as.character(namePos)
   stopifnot(namePos %in% levels(truth))
+  stopifnot(length(perfMeasure) == 1)
 
   W <- range(pred)
   cutoffs <- c(W[1]-delta, pred, W[2]+delta)
@@ -22,10 +23,10 @@ optCutoff <- function(pred, truth, namePos,
       cl <- parallel::makeCluster(ncores)
     }
     doParallel::registerDoParallel(cl)
-    `%dopar%` <- foreach::`%dopar%`
-    perfs <- foreach::foreach(i = seq_along(cutoffs)) %dopar% {
+      `%dopar%` <- foreach::`%dopar%`
+      perfs <- foreach::foreach(i = seq_along(cutoffs)) %dopar% {
       MKclass::perfMeasures(pred = pred, truth = truth, namePos = namePos,
-                           cutoff = cutoffs[i], measures = perfMeasure, ...)[1,2]
+                            cutoff = cutoffs[i], measures = perfMeasure, ...)[1,2]
     }
     parallel::stopCluster(cl)
   }else{
@@ -37,7 +38,7 @@ optCutoff <- function(pred, truth, namePos,
                                measures = perfMeasure, ...)[1,2]
     }
   }
-  if(max){
+  if(MAX){
     ind.max <- which.max(perfs)
     res <- unlist(c(cutoffs[ind.max], perfs[ind.max]))
   }else{
