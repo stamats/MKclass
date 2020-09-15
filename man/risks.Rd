@@ -1,6 +1,6 @@
 \name{risks}
 \alias{risks}
-\title{ Compute RR, OR, etc. }
+\title{ Compute RR, OR and Other Risk Measures }
 \description{
   The function computes relative risk (RR), odds ration (OR), and several
   other risk measures; see details.
