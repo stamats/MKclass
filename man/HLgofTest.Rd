@@ -36,7 +36,7 @@ HLgof.test(fit, obs, ngr = 10, X, verbose = FALSE)
 \references{
   S. Lemeshow and D.W. Hosmer (1982). A review of goodness of fit statistics
   for use in the development of logistic regression models. 
-  \emph{American Journal of Epidemiology, \bold{115}(1), 92-106.}
+  \emph{American Journal of Epidemiology}, \bold{115}(1), 92-106.
 
   D.W. Hosmer, T. Hosmer, S. le Cessie, S. Lemeshow (1997). A comparison 
   of goodness-of-fit tests for the logistic regression model. 
