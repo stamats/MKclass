@@ -35,7 +35,15 @@ decisionStump(pred, truth, namePos, perfMeasure = "YJS",
 \value{
   Object of class \code{decisionStump}.
 }
-%\references{}
+\references{
+  W. Iba and P. Langley (1992). Induction of One-Level Decision Trees. 
+  In: \emph{Machine Learning Proceedings 1992}, pages 233-240.
+  URL: https://doi.org/10.1016/B978-1-55860-247-2.50035-8  
+
+  R.C. Holte (1993). Very simple classification rules perform well on most 
+  commonly used datasets. In: \emph{Machine Learning}, pages 63-91.
+  URL: https://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.67.2711
+}
 \author{ Matthias Kohl \email{Matthias.Kohl@stamats.de}}
 \examples{
 ## example from dataset infert
