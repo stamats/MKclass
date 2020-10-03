@@ -63,6 +63,7 @@ perfScores <- function(pred, truth, namePos, wBS = 0.5, digits = 3,
   }
 
   ## https://scikit-learn.org/stable/modules/model_evaluation.html
+  ## https://en.wikipedia.org/wiki/Loss_functions_for_classification
   data.frame(Score = scoreNames, Value = round(scoreValues, digits))
 }
 
