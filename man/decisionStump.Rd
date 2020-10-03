@@ -49,6 +49,7 @@ decisionStump(pred, truth, namePos, perfMeasure = "YJS",
 ## example from dataset infert
 fit <- glm(case ~ spontaneous+induced, data = infert, family = binomial())
 pred <- predict(fit, type = "response")
-decisionStump(pred, truth = infert$case, namePos = 1)
+res <- decisionStump(pred, truth = infert$case, namePos = 1)
+predict(res, newdata = seq(from = 0, to = 1, by = 0.1))
 }
 \keyword{univar}

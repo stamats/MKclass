@@ -28,3 +28,6 @@ export(AUC,
 S3method(print, confMatrix)
 S3method(print, perfMeasure)
 S3method(print, perfScore)
+S3method(print, decisionStump)
+S3method(predict, decisionStump)
+
