@@ -1,5 +1,4 @@
-perfScores <- function(pred, truth, namePos, wBS = 0.5, digits = 3, 
-                       scores = "all"){
+perfScores <- function(pred, truth, namePos, wBS = 0.5, scores = "all"){
   stopifnot(length(pred) == length(truth))
   stopifnot(is.numeric(pred))
 
@@ -64,48 +63,57 @@ perfScores <- function(pred, truth, namePos, wBS = 0.5, digits = 3,
 
   ## https://scikit-learn.org/stable/modules/model_evaluation.html
   ## https://en.wikipedia.org/wiki/Loss_functions_for_classification
-  data.frame(Score = scoreNames, Value = round(scoreValues, digits))
+  res <- list(score = scoreNames, value = scoreValues)
+  class(res) <- "perfScore"
+  res
+}
+print.perfScore <- function(x, digits = getOption("digits"), prefix = "\t\t", ...){
+  cat("\n")
+  cat(strwrap("Performance Score(s)", prefix = prefix), sep = "\n")
+  cat("\n")
+  print(data.frame(Score = x$score, Value = x$value))
+  invisible(x)
 }
 
-GINI <- function(pred, truth, namePos, digits = 3){
+GINI <- function(pred, truth, namePos){
   tmp <- perfScores(pred = pred, truth = truth, namePos = namePos, 
-                    digits = digits, scores = "GINI")
-  res <- tmp[1,2]
-  names(res) <- tmp[1,1]
+                    scores = "GINI")
+  res <- tmp$value
+  names(res) <- tmp$score
   res
 }
-BS <- function(pred, truth, namePos, digits = 3){
+BS <- function(pred, truth, namePos){
   tmp <- perfScores(pred = pred, truth = truth, namePos = namePos, 
-                    digits = digits, scores = "BS")
-  res <- tmp[1,2]
-  names(res) <- tmp[1,1]
+                    scores = "BS")
+  res <- tmp$value
+  names(res) <- tmp$score
   res
 }
-PBS <- function(pred, truth, namePos, digits = 3){
+PBS <- function(pred, truth, namePos){
   tmp <- perfScores(pred = pred, truth = truth, namePos = namePos, 
-                    digits = digits, scores = "PBS")
-  res <- tmp[1,2]
-  names(res) <- tmp[1,1]
+                    scores = "PBS")
+  res <- tmp$value
+  names(res) <- tmp$score
   res
 }
-NBS <- function(pred, truth, namePos, digits = 3){
+NBS <- function(pred, truth, namePos){
   tmp <- perfScores(pred = pred, truth = truth, namePos = namePos, 
-                    digits = digits, scores = "NBS")
-  res <- tmp[1,2]
-  names(res) <- tmp[1,1]
+                    scores = "NBS")
+  res <- tmp$value
+  names(res) <- tmp$score
   res
 }
-WBS <- function(pred, truth, namePos, digits = 3, wBS = 0.5){
+WBS <- function(pred, truth, namePos, wBS = 0.5){
   tmp <- perfScores(pred = pred, truth = truth, namePos = namePos, 
-                    digits = digits, wBS = wBS, scores = "NBS")
-  res <- tmp[1,2]
-  names(res) <- tmp[1,1]
+                    wBS = wBS, scores = "NBS")
+  res <- tmp$value
+  names(res) <- tmp$score
   res
 }
-BBS <- function(pred, truth, namePos, digits = 3){
+BBS <- function(pred, truth, namePos){
   tmp <- perfScores(pred = pred, truth = truth, namePos = namePos, 
-                    digits = digits, scores = "BBS")
-  res <- tmp[1,2]
-  names(res) <- tmp[1,1]
+                    scores = "BBS")
+  res <- tmp$value
+  names(res) <- tmp$score
   res
 }

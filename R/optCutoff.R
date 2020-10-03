@@ -26,7 +26,7 @@ optCutoff <- function(pred, truth, namePos,
       `%dopar%` <- foreach::`%dopar%`
       perfs <- foreach::foreach(i = seq_along(cutoffs)) %dopar% {
       MKclass::perfMeasures(pred = pred, truth = truth, namePos = namePos,
-                            cutoff = cutoffs[i], measures = perfMeasure, ...)[1,2]
+                            cutoff = cutoffs[i], measures = perfMeasure, ...)$value
     }
     parallel::stopCluster(cl)
   }else{
@@ -35,7 +35,7 @@ optCutoff <- function(pred, truth, namePos,
       perfs[i] <- perfMeasures(pred = pred, truth = truth,
                                namePos = namePos,
                                cutoff = cutoffs[i], 
-                               measures = perfMeasure, ...)[1,2]
+                               measures = perfMeasure, ...)$value
     }
   }
   if(MAX){

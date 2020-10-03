@@ -6,7 +6,7 @@
   The function computes various performance scores for binary classification.
 }
 \usage{
-perfScores(pred, truth, namePos, wBS = 0.5, digits = 3, scores = "all")
+perfScores(pred, truth, namePos, wBS = 0.5, scores = "all")
 }
 \arguments{
   \item{pred}{ numeric values that shall be used for classification; e.g. probabilities
@@ -15,7 +15,6 @@ perfScores(pred, truth, namePos, wBS = 0.5, digits = 3, scores = "all")
   \item{namePos}{ value representing the positive group.}
   \item{wBS}{ weight used for computing the weighted Brier score (BS), where
 postive BS is multiplied by \code{wBS} and negative BS by \code{1-wBS}. Must be in [0,1].}
-  \item{digits}{ integer indicating the number of decimal places returned by applying (round).}
   \item{scores}{ character vector giving the scores that shall be computed;
   see details. Default \code{"all"} computes all scores available.}
 }

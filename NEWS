@@ -6,6 +6,9 @@
 ## Version 0.3
 ###########################################################
 - New function decisionStump to compute 1-level decision trees (1-rules).
+- Changed return value of perfMeasures and perfScores to object of respective
+  class.
+- Introduced print methods for class perfMeasure and perfScore.
 
 ###########################################################
 ## Version 0.2

@@ -1,7 +1,6 @@
 perfMeasures <- function(pred, pred.group, truth, namePos, cutoff = 0.5,
                          weight = 0.5, wACC = weight, wLR = weight, 
-                         wPV = weight, beta = 1, digits = 3, 
-                         measures = "all"){
+                         wPV = weight, beta = 1, measures = "all"){
   stopifnot(length(weight) == 1)
   if(weight < 0 | weight > 1) stop("'weight' has to be in [0, 1]")
   
@@ -645,726 +644,735 @@ perfMeasures <- function(pred, pred.group, truth, namePos, cutoff = 0.5,
     measureValues <- c(measureValues, NU)
   }
   
-  data.frame(Measure = measureNames, Value = round(measureValues, digits))
+  res <- list(measure = measureNames, value = measureValues)
+  class(res) <- "perfMeasure"
+  res
+}
+print.perfMeasure <- function(x, digits = getOption("digits"), prefix = "\t\t", ...){
+  cat("\n")
+  cat(strwrap("Performance Measure(s)", prefix = prefix), sep = "\n")
+  cat("\n")
+  print(data.frame(Measure = x$measure, Value = x$value))
+  invisible(x)
 }
 
 ACC <- function(pred, pred.group, truth, namePos, cutoff = 0.5,
                 digits = 3){
   tmp <- perfMeasures(pred = pred, pred.group = pred.group, truth = truth,
-                      namePos = namePos, cutoff = cutoff, digits = digits,
+                      namePos = namePos, cutoff = cutoff,
                       measures = "ACC")
-  res <- tmp[1,2]
-  names(res) <- tmp[1,1]
+  res <- tmp$value
+  names(res) <- tmp$measure
   res
 }
 PCC <- function(pred, pred.group, truth, namePos, cutoff = 0.5,
                 digits = 3){
   tmp <- perfMeasures(pred = pred, pred.group = pred.group, truth = truth,
-                      namePos = namePos, cutoff = cutoff, digits = digits,
+                      namePos = namePos, cutoff = cutoff,
                       measures = "PCC")
-  res <- tmp[1,2]
-  names(res) <- tmp[1,1]
+  res <- tmp$value
+  names(res) <- tmp$measure
   res
 }
 FC <- function(pred, pred.group, truth, namePos, cutoff = 0.5,
                 digits = 3){
   tmp <- perfMeasures(pred = pred, pred.group = pred.group, truth = truth,
-                      namePos = namePos, cutoff = cutoff, digits = digits,
+                      namePos = namePos, cutoff = cutoff,
                       measures = "FC")
-  res <- tmp[1,2]
-  names(res) <- tmp[1,1]
+  res <- tmp$value
+  names(res) <- tmp$measure
   res
 }
 SMC <- function(pred, pred.group, truth, namePos, cutoff = 0.5,
                digits = 3){
   tmp <- perfMeasures(pred = pred, pred.group = pred.group, truth = truth,
-                      namePos = namePos, cutoff = cutoff, digits = digits,
+                      namePos = namePos, cutoff = cutoff,
                       measures = "SMC")
-  res <- tmp[1,2]
-  names(res) <- tmp[1,1]
+  res <- tmp$value
+  names(res) <- tmp$measure
   res
 }
 RSI <- function(pred, pred.group, truth, namePos, cutoff = 0.5,
                 digits = 3){
   tmp <- perfMeasures(pred = pred, pred.group = pred.group, truth = truth,
-                      namePos = namePos, cutoff = cutoff, digits = digits,
+                      namePos = namePos, cutoff = cutoff,
                       measures = "RSI")
-  res <- tmp[1,2]
-  names(res) <- tmp[1,1]
+  res <- tmp$value
+  names(res) <- tmp$measure
   res
 }
 PMC <- function(pred, pred.group, truth, namePos, cutoff = 0.5,
                 digits = 3){
   tmp <- perfMeasures(pred = pred, pred.group = pred.group, truth = truth,
-                      namePos = namePos, cutoff = cutoff, digits = digits,
+                      namePos = namePos, cutoff = cutoff,
                       measures = "PMC")
-  res <- tmp[1,2]
-  names(res) <- tmp[1,1]
+  res <- tmp$value
+  names(res) <- tmp$measure
   res
 }
 ER <- function(pred, pred.group, truth, namePos, cutoff = 0.5,
                 digits = 3){
   tmp <- perfMeasures(pred = pred, pred.group = pred.group, truth = truth,
-                      namePos = namePos, cutoff = cutoff, digits = digits,
+                      namePos = namePos, cutoff = cutoff,
                       measures = "ER")
-  res <- tmp[1,2]
-  names(res) <- tmp[1,1]
+  res <- tmp$value
+  names(res) <- tmp$measure
   res
 }
 FIC <- function(pred, pred.group, truth, namePos, cutoff = 0.5,
                digits = 3){
   tmp <- perfMeasures(pred = pred, pred.group = pred.group, truth = truth,
-                      namePos = namePos, cutoff = cutoff, digits = digits,
+                      namePos = namePos, cutoff = cutoff,
                       measures = "FIC")
-  res <- tmp[1,2]
-  names(res) <- tmp[1,1]
+  res <- tmp$value
+  names(res) <- tmp$measure
   res
 }
 SENS <- function(pred, pred.group, truth, namePos, cutoff = 0.5,
                 digits = 3){
   tmp <- perfMeasures(pred = pred, pred.group = pred.group, truth = truth,
-                      namePos = namePos, cutoff = cutoff, digits = digits,
+                      namePos = namePos, cutoff = cutoff,
                       measures = "SENS")
-  res <- tmp[1,2]
-  names(res) <- tmp[1,1]
+  res <- tmp$value
+  names(res) <- tmp$measure
   res
 }
 REC <- function(pred, pred.group, truth, namePos, cutoff = 0.5,
                  digits = 3){
   tmp <- perfMeasures(pred = pred, pred.group = pred.group, truth = truth,
-                      namePos = namePos, cutoff = cutoff, digits = digits,
+                      namePos = namePos, cutoff = cutoff,
                       measures = "REC")
-  res <- tmp[1,2]
-  names(res) <- tmp[1,1]
+  res <- tmp$value
+  names(res) <- tmp$measure
   res
 }
 TPR <- function(pred, pred.group, truth, namePos, cutoff = 0.5,
                 digits = 3){
   tmp <- perfMeasures(pred = pred, pred.group = pred.group, truth = truth,
-                      namePos = namePos, cutoff = cutoff, digits = digits,
+                      namePos = namePos, cutoff = cutoff,
                       measures = "TPR")
-  res <- tmp[1,2]
-  names(res) <- tmp[1,1]
+  res <- tmp$value
+  names(res) <- tmp$measure
   res
 }
 PD <- function(pred, pred.group, truth, namePos, cutoff = 0.5,
                 digits = 3){
   tmp <- perfMeasures(pred = pred, pred.group = pred.group, truth = truth,
-                      namePos = namePos, cutoff = cutoff, digits = digits,
+                      namePos = namePos, cutoff = cutoff,
                       measures = "PD")
-  res <- tmp[1,2]
-  names(res) <- tmp[1,1]
+  res <- tmp$value
+  names(res) <- tmp$measure
   res
 }
 HR <- function(pred, pred.group, truth, namePos, cutoff = 0.5,
                digits = 3){
   tmp <- perfMeasures(pred = pred, pred.group = pred.group, truth = truth,
-                      namePos = namePos, cutoff = cutoff, digits = digits,
+                      namePos = namePos, cutoff = cutoff,
                       measures = "HR")
-  res <- tmp[1,2]
-  names(res) <- tmp[1,1]
+  res <- tmp$value
+  names(res) <- tmp$measure
   res
 }
 SPEC <- function(pred, pred.group, truth, namePos, cutoff = 0.5,
                digits = 3){
   tmp <- perfMeasures(pred = pred, pred.group = pred.group, truth = truth,
-                      namePos = namePos, cutoff = cutoff, digits = digits,
+                      namePos = namePos, cutoff = cutoff,
                       measures = "SPEC")
-  res <- tmp[1,2]
-  names(res) <- tmp[1,1]
+  res <- tmp$value
+  names(res) <- tmp$measure
   res
 }
 TNR <- function(pred, pred.group, truth, namePos, cutoff = 0.5,
                  digits = 3){
   tmp <- perfMeasures(pred = pred, pred.group = pred.group, truth = truth,
-                      namePos = namePos, cutoff = cutoff, digits = digits,
+                      namePos = namePos, cutoff = cutoff,
                       measures = "TNR")
-  res <- tmp[1,2]
-  names(res) <- tmp[1,1]
+  res <- tmp$value
+  names(res) <- tmp$measure
   res
 }
 SEL <- function(pred, pred.group, truth, namePos, cutoff = 0.5,
                 digits = 3){
   tmp <- perfMeasures(pred = pred, pred.group = pred.group, truth = truth,
-                      namePos = namePos, cutoff = cutoff, digits = digits,
+                      namePos = namePos, cutoff = cutoff,
                       measures = "SEL")
-  res <- tmp[1,2]
-  names(res) <- tmp[1,1]
+  res <- tmp$value
+  names(res) <- tmp$measure
   res
 }
 DR <- function(pred, pred.group, truth, namePos, cutoff = 0.5,
                 digits = 3){
   tmp <- perfMeasures(pred = pred, pred.group = pred.group, truth = truth,
-                      namePos = namePos, cutoff = cutoff, digits = digits,
+                      namePos = namePos, cutoff = cutoff,
                       measures = "DR")
-  res <- tmp[1,2]
-  names(res) <- tmp[1,1]
+  res <- tmp$value
+  names(res) <- tmp$measure
   res
 }
 FPR <- function(pred, pred.group, truth, namePos, cutoff = 0.5,
                digits = 3){
   tmp <- perfMeasures(pred = pred, pred.group = pred.group, truth = truth,
-                      namePos = namePos, cutoff = cutoff, digits = digits,
+                      namePos = namePos, cutoff = cutoff,
                       measures = "FPR")
-  res <- tmp[1,2]
-  names(res) <- tmp[1,1]
+  res <- tmp$value
+  names(res) <- tmp$measure
   res
 }
 FO <- function(pred, pred.group, truth, namePos, cutoff = 0.5,
                 digits = 3){
   tmp <- perfMeasures(pred = pred, pred.group = pred.group, truth = truth,
-                      namePos = namePos, cutoff = cutoff, digits = digits,
+                      namePos = namePos, cutoff = cutoff,
                       measures = "FO")
-  res <- tmp[1,2]
-  names(res) <- tmp[1,1]
+  res <- tmp$value
+  names(res) <- tmp$measure
   res
 }
 FAR <- function(pred, pred.group, truth, namePos, cutoff = 0.5,
                digits = 3){
   tmp <- perfMeasures(pred = pred, pred.group = pred.group, truth = truth,
-                      namePos = namePos, cutoff = cutoff, digits = digits,
+                      namePos = namePos, cutoff = cutoff,
                       measures = "FAR")
-  res <- tmp[1,2]
-  names(res) <- tmp[1,1]
+  res <- tmp$value
+  names(res) <- tmp$measure
   res
 }
 PFA <- function(pred, pred.group, truth, namePos, cutoff = 0.5,
                 digits = 3){
   tmp <- perfMeasures(pred = pred, pred.group = pred.group, truth = truth,
-                      namePos = namePos, cutoff = cutoff, digits = digits,
+                      namePos = namePos, cutoff = cutoff,
                       measures = "PFA")
-  res <- tmp[1,2]
-  names(res) <- tmp[1,1]
+  res <- tmp$value
+  names(res) <- tmp$measure
   res
 }
 FNR <- function(pred, pred.group, truth, namePos, cutoff = 0.5,
                 digits = 3){
   tmp <- perfMeasures(pred = pred, pred.group = pred.group, truth = truth,
-                      namePos = namePos, cutoff = cutoff, digits = digits,
+                      namePos = namePos, cutoff = cutoff,
                       measures = "FNR")
-  res <- tmp[1,2]
-  names(res) <- tmp[1,1]
+  res <- tmp$value
+  names(res) <- tmp$measure
   res
 }
 MR <- function(pred, pred.group, truth, namePos, cutoff = 0.5,
                 digits = 3){
   tmp <- perfMeasures(pred = pred, pred.group = pred.group, truth = truth,
-                      namePos = namePos, cutoff = cutoff, digits = digits,
+                      namePos = namePos, cutoff = cutoff,
                       measures = "MR")
-  res <- tmp[1,2]
-  names(res) <- tmp[1,1]
+  res <- tmp$value
+  names(res) <- tmp$measure
   res
 }
 FDR <- function(pred, pred.group, truth, namePos, cutoff = 0.5,
                digits = 3){
   tmp <- perfMeasures(pred = pred, pred.group = pred.group, truth = truth,
-                      namePos = namePos, cutoff = cutoff, digits = digits,
+                      namePos = namePos, cutoff = cutoff,
                       measures = "FDR")
-  res <- tmp[1,2]
-  names(res) <- tmp[1,1]
+  res <- tmp$value
+  names(res) <- tmp$measure
   res
 }
 FOR <- function(pred, pred.group, truth, namePos, cutoff = 0.5,
                 digits = 3){
   tmp <- perfMeasures(pred = pred, pred.group = pred.group, truth = truth,
-                      namePos = namePos, cutoff = cutoff, digits = digits,
+                      namePos = namePos, cutoff = cutoff,
                       measures = "FOR")
-  res <- tmp[1,2]
-  names(res) <- tmp[1,1]
+  res <- tmp$value
+  names(res) <- tmp$measure
   res
 }
 PREV <- function(pred, pred.group, truth, namePos, cutoff = 0.5,
                 digits = 3){
   tmp <- perfMeasures(pred = pred, pred.group = pred.group, truth = truth,
-                      namePos = namePos, cutoff = cutoff, digits = digits,
+                      namePos = namePos, cutoff = cutoff,
                       measures = "PREV")
-  res <- tmp[1,2]
-  names(res) <- tmp[1,1]
+  res <- tmp$value
+  names(res) <- tmp$measure
   res
 }
 PREP <- function(pred, pred.group, truth, namePos, cutoff = 0.5,
                  digits = 3){
   tmp <- perfMeasures(pred = pred, pred.group = pred.group, truth = truth,
-                      namePos = namePos, cutoff = cutoff, digits = digits,
+                      namePos = namePos, cutoff = cutoff,
                       measures = "PREP")
-  res <- tmp[1,2]
-  names(res) <- tmp[1,1]
+  res <- tmp$value
+  names(res) <- tmp$measure
   res
 }
 PREO <- function(pred, pred.group, truth, namePos, cutoff = 0.5,
                  digits = 3){
   tmp <- perfMeasures(pred = pred, pred.group = pred.group, truth = truth,
-                      namePos = namePos, cutoff = cutoff, digits = digits,
+                      namePos = namePos, cutoff = cutoff,
                       measures = "PREO")
-  res <- tmp[1,2]
-  names(res) <- tmp[1,1]
+  res <- tmp$value
+  names(res) <- tmp$measure
   res
 }
 DPREV <- function(pred, pred.group, truth, namePos, cutoff = 0.5,
                  digits = 3){
   tmp <- perfMeasures(pred = pred, pred.group = pred.group, truth = truth,
-                      namePos = namePos, cutoff = cutoff, digits = digits,
+                      namePos = namePos, cutoff = cutoff,
                       measures = "DPREV")
-  res <- tmp[1,2]
-  names(res) <- tmp[1,1]
+  res <- tmp$value
+  names(res) <- tmp$measure
   res
 }
 NPREP <- function(pred, pred.group, truth, namePos, cutoff = 0.5,
                   digits = 3){
   tmp <- perfMeasures(pred = pred, pred.group = pred.group, truth = truth,
-                      namePos = namePos, cutoff = cutoff, digits = digits,
+                      namePos = namePos, cutoff = cutoff,
                       measures = "NPREP")
-  res <- tmp[1,2]
-  names(res) <- tmp[1,1]
+  res <- tmp$value
+  names(res) <- tmp$measure
   res
 }
 NPREO <- function(pred, pred.group, truth, namePos, cutoff = 0.5,
                   digits = 3){
   tmp <- perfMeasures(pred = pred, pred.group = pred.group, truth = truth,
-                      namePos = namePos, cutoff = cutoff, digits = digits,
+                      namePos = namePos, cutoff = cutoff,
                       measures = "NPREO")
-  res <- tmp[1,2]
-  names(res) <- tmp[1,1]
+  res <- tmp$value
+  names(res) <- tmp$measure
   res
 }
 NIR <- function(pred, pred.group, truth, namePos, cutoff = 0.5,
                   digits = 3){
   tmp <- perfMeasures(pred = pred, pred.group = pred.group, truth = truth,
-                      namePos = namePos, cutoff = cutoff, digits = digits,
+                      namePos = namePos, cutoff = cutoff,
                       measures = "NIR")
-  res <- tmp[1,2]
-  names(res) <- tmp[1,1]
+  res <- tmp$value
+  names(res) <- tmp$measure
   res
 }
 WACC <- function(pred, pred.group, truth, namePos, cutoff = 0.5, wACC = 0.5,
                 digits = 3){
   tmp <- perfMeasures(pred = pred, pred.group = pred.group, truth = truth,
-                      namePos = namePos, cutoff = cutoff, digits = digits,
+                      namePos = namePos, cutoff = cutoff,
                       measures = "WACC", wACC = wACC)
-  res <- tmp[1,2]
-  names(res) <- tmp[1,1]
+  res <- tmp$value
+  names(res) <- tmp$measure
   res
 }
 BACC <- function(pred, pred.group, truth, namePos, cutoff = 0.5,
                  digits = 3){
   tmp <- perfMeasures(pred = pred, pred.group = pred.group, truth = truth,
-                      namePos = namePos, cutoff = cutoff, digits = digits,
+                      namePos = namePos, cutoff = cutoff,
                       measures = "BACC")
-  res <- tmp[1,2]
-  names(res) <- tmp[1,1]
+  res <- tmp$value
+  names(res) <- tmp$measure
   res
 }
 INF <- function(pred, pred.group, truth, namePos, cutoff = 0.5,
                 digits = 3){
   tmp <- perfMeasures(pred = pred, pred.group = pred.group, truth = truth,
-                      namePos = namePos, cutoff = cutoff, digits = digits,
+                      namePos = namePos, cutoff = cutoff,
                       measures = "INF")
-  res <- tmp[1,2]
-  names(res) <- tmp[1,1]
+  res <- tmp$value
+  names(res) <- tmp$measure
   res
 }
 YJS <- function(pred, pred.group, truth, namePos, cutoff = 0.5,
                 digits = 3){
   tmp <- perfMeasures(pred = pred, pred.group = pred.group, truth = truth,
-                      namePos = namePos, cutoff = cutoff, digits = digits,
+                      namePos = namePos, cutoff = cutoff,
                       measures = "YJS")
-  res <- tmp[1,2]
-  names(res) <- tmp[1,1]
+  res <- tmp$value
+  names(res) <- tmp$measure
   res
 }
 DPp <- function(pred, pred.group, truth, namePos, cutoff = 0.5,
                 digits = 3){
   tmp <- perfMeasures(pred = pred, pred.group = pred.group, truth = truth,
-                      namePos = namePos, cutoff = cutoff, digits = digits,
+                      namePos = namePos, cutoff = cutoff,
                       measures = "DPp")
-  res <- tmp[1,2]
-  names(res) <- tmp[1,1]
+  res <- tmp$value
+  names(res) <- tmp$measure
   res
 }
 PLR <- function(pred, pred.group, truth, namePos, cutoff = 0.5,
                 digits = 3){
   tmp <- perfMeasures(pred = pred, pred.group = pred.group, truth = truth,
-                      namePos = namePos, cutoff = cutoff, digits = digits,
+                      namePos = namePos, cutoff = cutoff,
                       measures = "PLR")
-  res <- tmp[1,2]
-  names(res) <- tmp[1,1]
+  res <- tmp$value
+  names(res) <- tmp$measure
   res
 }
 NLR <- function(pred, pred.group, truth, namePos, cutoff = 0.5,
                 digits = 3){
   tmp <- perfMeasures(pred = pred, pred.group = pred.group, truth = truth,
-                      namePos = namePos, cutoff = cutoff, digits = digits,
+                      namePos = namePos, cutoff = cutoff,
                       measures = "NLR")
-  res <- tmp[1,2]
-  names(res) <- tmp[1,1]
+  res <- tmp$value
+  names(res) <- tmp$measure
   res
 }
 WLR <- function(pred, pred.group, truth, namePos, cutoff = 0.5, wLR = 0.5,
                 digits = 3){
   tmp <- perfMeasures(pred = pred, pred.group = pred.group, truth = truth,
-                      namePos = namePos, cutoff = cutoff, digits = digits,
+                      namePos = namePos, cutoff = cutoff,
                       measures = "WLR", wLR = wLR)
-  res <- tmp[1,2]
-  names(res) <- tmp[1,1]
+  res <- tmp$value
+  names(res) <- tmp$measure
   res
 }
 BLR <- function(pred, pred.group, truth, namePos, cutoff = 0.5,
                 digits = 3){
   tmp <- perfMeasures(pred = pred, pred.group = pred.group, truth = truth,
-                      namePos = namePos, cutoff = cutoff, digits = digits,
+                      namePos = namePos, cutoff = cutoff,
                       measures = "BLR")
-  res <- tmp[1,2]
-  names(res) <- tmp[1,1]
+  res <- tmp$value
+  names(res) <- tmp$measure
   res
 }
 DOR <- function(pred, pred.group, truth, namePos, cutoff = 0.5,
                 digits = 3){
   tmp <- perfMeasures(pred = pred, pred.group = pred.group, truth = truth,
-                      namePos = namePos, cutoff = cutoff, digits = digits,
+                      namePos = namePos, cutoff = cutoff,
                       measures = "DOR")
-  res <- tmp[1,2]
-  names(res) <- tmp[1,1]
+  res <- tmp$value
+  names(res) <- tmp$measure
   res
 }
 PPV <- function(pred, pred.group, truth, namePos, cutoff = 0.5,
                 digits = 3){
   tmp <- perfMeasures(pred = pred, pred.group = pred.group, truth = truth,
-                      namePos = namePos, cutoff = cutoff, digits = digits,
+                      namePos = namePos, cutoff = cutoff,
                       measures = "PPV")
-  res <- tmp[1,2]
-  names(res) <- tmp[1,1]
+  res <- tmp$value
+  names(res) <- tmp$measure
   res
 }
 PREC <- function(pred, pred.group, truth, namePos, cutoff = 0.5,
                  digits = 3){
   tmp <- perfMeasures(pred = pred, pred.group = pred.group, truth = truth,
-                      namePos = namePos, cutoff = cutoff, digits = digits,
+                      namePos = namePos, cutoff = cutoff,
                       measures = "PREC")
-  res <- tmp[1,2]
-  names(res) <- tmp[1,1]
+  res <- tmp$value
+  names(res) <- tmp$measure
   res
 }
 POSTP <- function(pred, pred.group, truth, namePos, cutoff = 0.5,
                   digits = 3){
   tmp <- perfMeasures(pred = pred, pred.group = pred.group, truth = truth,
-                      namePos = namePos, cutoff = cutoff, digits = digits,
+                      namePos = namePos, cutoff = cutoff,
                       measures = "POSTP")
-  res <- tmp[1,2]
-  names(res) <- tmp[1,1]
+  res <- tmp$value
+  names(res) <- tmp$measure
   res
 }
 POSTO <- function(pred, pred.group, truth, namePos, cutoff = 0.5,
                   digits = 3){
   tmp <- perfMeasures(pred = pred, pred.group = pred.group, truth = truth,
-                      namePos = namePos, cutoff = cutoff, digits = digits,
+                      namePos = namePos, cutoff = cutoff,
                       measures = "POSTO")
-  res <- tmp[1,2]
-  names(res) <- tmp[1,1]
+  res <- tmp$value
+  names(res) <- tmp$measure
   res
 }
 BFG1 <- function(pred, pred.group, truth, namePos, cutoff = 0.5,
                  digits = 3){
   tmp <- perfMeasures(pred = pred, pred.group = pred.group, truth = truth,
-                      namePos = namePos, cutoff = cutoff, digits = digits,
+                      namePos = namePos, cutoff = cutoff,
                       measures = "BFG1")
-  res <- tmp[1,2]
-  names(res) <- tmp[1,1]
+  res <- tmp$value
+  names(res) <- tmp$measure
   res
 }
 NPV <- function(pred, pred.group, truth, namePos, cutoff = 0.5,
                 digits = 3){
   tmp <- perfMeasures(pred = pred, pred.group = pred.group, truth = truth,
-                      namePos = namePos, cutoff = cutoff, digits = digits,
+                      namePos = namePos, cutoff = cutoff,
                       measures = "NPV")
-  res <- tmp[1,2]
-  names(res) <- tmp[1,1]
+  res <- tmp$value
+  names(res) <- tmp$measure
   res
 }
 NPOSTP <- function(pred, pred.group, truth, namePos, cutoff = 0.5,
                 digits = 3){
   tmp <- perfMeasures(pred = pred, pred.group = pred.group, truth = truth,
-                      namePos = namePos, cutoff = cutoff, digits = digits,
+                      namePos = namePos, cutoff = cutoff,
                       measures = "NPOSTP")
-  res <- tmp[1,2]
-  names(res) <- tmp[1,1]
+  res <- tmp$value
+  names(res) <- tmp$measure
   res
 }
 NPOSTO <- function(pred, pred.group, truth, namePos, cutoff = 0.5,
                 digits = 3){
   tmp <- perfMeasures(pred = pred, pred.group = pred.group, truth = truth,
-                      namePos = namePos, cutoff = cutoff, digits = digits,
+                      namePos = namePos, cutoff = cutoff,
                       measures = "NPOSTO")
-  res <- tmp[1,2]
-  names(res) <- tmp[1,1]
+  res <- tmp$value
+  names(res) <- tmp$measure
   res
 }
 BFG0 <- function(pred, pred.group, truth, namePos, cutoff = 0.5,
                  digits = 3){
   tmp <- perfMeasures(pred = pred, pred.group = pred.group, truth = truth,
-                      namePos = namePos, cutoff = cutoff, digits = digits,
+                      namePos = namePos, cutoff = cutoff,
                       measures = "BFG0")
-  res <- tmp[1,2]
-  names(res) <- tmp[1,1]
+  res <- tmp$value
+  names(res) <- tmp$measure
   res
 }
 MARK <- function(pred, pred.group, truth, namePos, cutoff = 0.5,
                  digits = 3){
   tmp <- perfMeasures(pred = pred, pred.group = pred.group, truth = truth,
-                      namePos = namePos, cutoff = cutoff, digits = digits,
+                      namePos = namePos, cutoff = cutoff,
                       measures = "MARK")
-  res <- tmp[1,2]
-  names(res) <- tmp[1,1]
+  res <- tmp$value
+  names(res) <- tmp$measure
   res
 }
 DP <- function(pred, pred.group, truth, namePos, cutoff = 0.5,
                digits = 3){
   tmp <- perfMeasures(pred = pred, pred.group = pred.group, truth = truth,
-                      namePos = namePos, cutoff = cutoff, digits = digits,
+                      namePos = namePos, cutoff = cutoff,
                       measures = "DP")
-  res <- tmp[1,2]
-  names(res) <- tmp[1,1]
+  res <- tmp$value
+  names(res) <- tmp$measure
   res
 }
 WPV <- function(pred, pred.group, truth, namePos, cutoff = 0.5, wPV = 0.5,
                 digits = 3){
   tmp <- perfMeasures(pred = pred, pred.group = pred.group, truth = truth,
-                      namePos = namePos, cutoff = cutoff, digits = digits,
+                      namePos = namePos, cutoff = cutoff,
                       measures = "WPV", wPV = wPV)
-  res <- tmp[1,2]
-  names(res) <- tmp[1,1]
+  res <- tmp$value
+  names(res) <- tmp$measure
   res
 }
 BPV <- function(pred, pred.group, truth, namePos, cutoff = 0.5,
                 digits = 3){
   tmp <- perfMeasures(pred = pred, pred.group = pred.group, truth = truth,
-                      namePos = namePos, cutoff = cutoff, digits = digits,
+                      namePos = namePos, cutoff = cutoff,
                       measures = "BPV")
-  res <- tmp[1,2]
-  names(res) <- tmp[1,1]
+  res <- tmp$value
+  names(res) <- tmp$measure
   res
 }
 F1S <- function(pred, pred.group, truth, namePos, cutoff = 0.5,
                 digits = 3){
   tmp <- perfMeasures(pred = pred, pred.group = pred.group, truth = truth,
-                      namePos = namePos, cutoff = cutoff, digits = digits,
+                      namePos = namePos, cutoff = cutoff,
                       measures = "F1S")
-  res <- tmp[1,2]
-  names(res) <- tmp[1,1]
+  res <- tmp$value
+  names(res) <- tmp$measure
   res
 }
 DSC <- function(pred, pred.group, truth, namePos, cutoff = 0.5,
                 digits = 3){
   tmp <- perfMeasures(pred = pred, pred.group = pred.group, truth = truth,
-                      namePos = namePos, cutoff = cutoff, digits = digits,
+                      namePos = namePos, cutoff = cutoff,
                       measures = "DSC")
-  res <- tmp[1,2]
-  names(res) <- tmp[1,1]
+  res <- tmp$value
+  names(res) <- tmp$measure
   res
 }
 FBS <- function(pred, pred.group, truth, namePos, cutoff = 0.5,
                 digits = 3, beta = 1){
   tmp <- perfMeasures(pred = pred, pred.group = pred.group, truth = truth,
-                      namePos = namePos, cutoff = cutoff, digits = digits,
+                      namePos = namePos, cutoff = cutoff,
                       measures = "FBS", beta = beta)
-  res <- tmp[1,2]
-  names(res) <- tmp[1,1]
+  res <- tmp$value
+  names(res) <- tmp$measure
   res
 }
 JSC <- function(pred, pred.group, truth, namePos, cutoff = 0.5,
                 digits = 3){
   tmp <- perfMeasures(pred = pred, pred.group = pred.group, truth = truth,
-                      namePos = namePos, cutoff = cutoff, digits = digits,
+                      namePos = namePos, cutoff = cutoff,
                       measures = "JSC")
-  res <- tmp[1,2]
-  names(res) <- tmp[1,1]
+  res <- tmp$value
+  names(res) <- tmp$measure
   res
 }
 TS <- function(pred, pred.group, truth, namePos, cutoff = 0.5,
                 digits = 3){
   tmp <- perfMeasures(pred = pred, pred.group = pred.group, truth = truth,
-                      namePos = namePos, cutoff = cutoff, digits = digits,
+                      namePos = namePos, cutoff = cutoff,
                       measures = "TS")
-  res <- tmp[1,2]
-  names(res) <- tmp[1,1]
+  res <- tmp$value
+  names(res) <- tmp$measure
   res
 }
 CSI <- function(pred, pred.group, truth, namePos, cutoff = 0.5,
                 digits = 3){
   tmp <- perfMeasures(pred = pred, pred.group = pred.group, truth = truth,
-                      namePos = namePos, cutoff = cutoff, digits = digits,
+                      namePos = namePos, cutoff = cutoff,
                       measures = "CSI")
-  res <- tmp[1,2]
-  names(res) <- tmp[1,1]
+  res <- tmp$value
+  names(res) <- tmp$measure
   res
 }
 MCC <- function(pred, pred.group, truth, namePos, cutoff = 0.5,
                 digits = 3){
   tmp <- perfMeasures(pred = pred, pred.group = pred.group, truth = truth,
-                      namePos = namePos, cutoff = cutoff, digits = digits,
+                      namePos = namePos, cutoff = cutoff,
                       measures = "MCC")
-  res <- tmp[1,2]
-  names(res) <- tmp[1,1]
+  res <- tmp$value
+  names(res) <- tmp$measure
   res
 }
 RPHI <- function(pred, pred.group, truth, namePos, cutoff = 0.5,
                  digits = 3){
   tmp <- perfMeasures(pred = pred, pred.group = pred.group, truth = truth,
-                      namePos = namePos, cutoff = cutoff, digits = digits,
+                      namePos = namePos, cutoff = cutoff,
                       measures = "RPHI")
-  res <- tmp[1,2]
-  names(res) <- tmp[1,1]
+  res <- tmp$value
+  names(res) <- tmp$measure
   res
 }
 PHIC <- function(pred, pred.group, truth, namePos, cutoff = 0.5,
                  digits = 3){
   tmp <- perfMeasures(pred = pred, pred.group = pred.group, truth = truth,
-                      namePos = namePos, cutoff = cutoff, digits = digits,
+                      namePos = namePos, cutoff = cutoff,
                       measures = "PHIC")
-  res <- tmp[1,2]
-  names(res) <- tmp[1,1]
+  res <- tmp$value
+  names(res) <- tmp$measure
   res
 }
 CRV <- function(pred, pred.group, truth, namePos, cutoff = 0.5,
                  digits = 3){
   tmp <- perfMeasures(pred = pred, pred.group = pred.group, truth = truth,
-                      namePos = namePos, cutoff = cutoff, digits = digits,
+                      namePos = namePos, cutoff = cutoff,
                       measures = "CRV")
-  res <- tmp[1,2]
-  names(res) <- tmp[1,1]
+  res <- tmp$value
+  names(res) <- tmp$measure
   res
 }
 PPP <- function(pred, pred.group, truth, namePos, cutoff = 0.5,
                 digits = 3){
   tmp <- perfMeasures(pred = pred, pred.group = pred.group, truth = truth,
-                      namePos = namePos, cutoff = cutoff, digits = digits,
+                      namePos = namePos, cutoff = cutoff,
                       measures = "PPP")
-  res <- tmp[1,2]
-  names(res) <- tmp[1,1]
+  res <- tmp$value
+  names(res) <- tmp$measure
   res
 }
 EACC <- function(pred, pred.group, truth, namePos, cutoff = 0.5,
                  digits = 3){
   tmp <- perfMeasures(pred = pred, pred.group = pred.group, truth = truth,
-                      namePos = namePos, cutoff = cutoff, digits = digits,
+                      namePos = namePos, cutoff = cutoff,
                       measures = "EACC")
-  res <- tmp[1,2]
-  names(res) <- tmp[1,1]
+  res <- tmp$value
+  names(res) <- tmp$measure
   res
 }
 CKC <- function(pred, pred.group, truth, namePos, cutoff = 0.5,
                 digits = 3){
   tmp <- perfMeasures(pred = pred, pred.group = pred.group, truth = truth,
-                      namePos = namePos, cutoff = cutoff, digits = digits,
+                      namePos = namePos, cutoff = cutoff,
                       measures = "CKC")
-  res <- tmp[1,2]
-  names(res) <- tmp[1,1]
+  res <- tmp$value
+  names(res) <- tmp$measure
   res
 }
 MI2 <- function(pred, pred.group, truth, namePos, cutoff = 0.5,
                digits = 3){
   tmp <- perfMeasures(pred = pred, pred.group = pred.group, truth = truth,
-                      namePos = namePos, cutoff = cutoff, digits = digits,
+                      namePos = namePos, cutoff = cutoff,
                       measures = "MI2")
-  res <- tmp[1,2]
-  names(res) <- tmp[1,1]
+  res <- tmp$value
+  names(res) <- tmp$measure
   res
 }
 JE2 <- function(pred, pred.group, truth, namePos, cutoff = 0.5,
                 digits = 3){
   tmp <- perfMeasures(pred = pred, pred.group = pred.group, truth = truth,
-                      namePos = namePos, cutoff = cutoff, digits = digits,
+                      namePos = namePos, cutoff = cutoff,
                       measures = "JE2")
-  res <- tmp[1,2]
-  names(res) <- tmp[1,1]
+  res <- tmp$value
+  names(res) <- tmp$measure
   res
 }
 VI2 <- function(pred, pred.group, truth, namePos, cutoff = 0.5,
                 digits = 3){
   tmp <- perfMeasures(pred = pred, pred.group = pred.group, truth = truth,
-                      namePos = namePos, cutoff = cutoff, digits = digits,
+                      namePos = namePos, cutoff = cutoff,
                       measures = "VI2")
-  res <- tmp[1,2]
-  names(res) <- tmp[1,1]
+  res <- tmp$value
+  names(res) <- tmp$measure
   res
 }
 JD <- function(pred, pred.group, truth, namePos, cutoff = 0.5,
                digits = 3){
   tmp <- perfMeasures(pred = pred, pred.group = pred.group, truth = truth,
-                      namePos = namePos, cutoff = cutoff, digits = digits,
+                      namePos = namePos, cutoff = cutoff,
                       measures = "JD")
-  res <- tmp[1,2]
-  names(res) <- tmp[1,1]
+  res <- tmp$value
+  names(res) <- tmp$measure
   res
 }
 INFQR <- function(pred, pred.group, truth, namePos, cutoff = 0.5,
                   digits = 3){
   tmp <- perfMeasures(pred = pred, pred.group = pred.group, truth = truth,
-                      namePos = namePos, cutoff = cutoff, digits = digits,
+                      namePos = namePos, cutoff = cutoff,
                       measures = "INFQR")
-  res <- tmp[1,2]
-  names(res) <- tmp[1,1]
+  res <- tmp$value
+  names(res) <- tmp$measure
   res
 }
 UC <- function(pred, pred.group, truth, namePos, cutoff = 0.5,
                digits = 3){
   tmp <- perfMeasures(pred = pred, pred.group = pred.group, truth = truth,
-                      namePos = namePos, cutoff = cutoff, digits = digits,
+                      namePos = namePos, cutoff = cutoff,
                       measures = "UC")
-  res <- tmp[1,2]
-  names(res) <- tmp[1,1]
+  res <- tmp$value
+  names(res) <- tmp$measure
   res
 }
 EC <- function(pred, pred.group, truth, namePos, cutoff = 0.5,
                digits = 3){
   tmp <- perfMeasures(pred = pred, pred.group = pred.group, truth = truth,
-                      namePos = namePos, cutoff = cutoff, digits = digits,
+                      namePos = namePos, cutoff = cutoff,
                       measures = "EC")
-  res <- tmp[1,2]
-  names(res) <- tmp[1,1]
+  res <- tmp$value
+  names(res) <- tmp$measure
   res
 }
 PROF <- function(pred, pred.group, truth, namePos, cutoff = 0.5,
                  digits = 3){
   tmp <- perfMeasures(pred = pred, pred.group = pred.group, truth = truth,
-                      namePos = namePos, cutoff = cutoff, digits = digits,
+                      namePos = namePos, cutoff = cutoff,
                       measures = "PROF")
-  res <- tmp[1,2]
-  names(res) <- tmp[1,1]
+  res <- tmp$value
+  names(res) <- tmp$measure
   res
 }
 DFM <- function(pred, pred.group, truth, namePos, cutoff = 0.5,
                  digits = 3){
   tmp <- perfMeasures(pred = pred, pred.group = pred.group, truth = truth,
-                      namePos = namePos, cutoff = cutoff, digits = digits,
+                      namePos = namePos, cutoff = cutoff,
                       measures = "DFM")
-  res <- tmp[1,2]
-  names(res) <- tmp[1,1]
+  res <- tmp$value
+  names(res) <- tmp$measure
   res
 }
 RED <- function(pred, pred.group, truth, namePos, cutoff = 0.5,
                 digits = 3){
   tmp <- perfMeasures(pred = pred, pred.group = pred.group, truth = truth,
-                      namePos = namePos, cutoff = cutoff, digits = digits,
+                      namePos = namePos, cutoff = cutoff,
                       measures = "RED")
-  res <- tmp[1,2]
-  names(res) <- tmp[1,1]
+  res <- tmp$value
+  names(res) <- tmp$measure
   res
 }
 SU <- function(pred, pred.group, truth, namePos, cutoff = 0.5,
               digits = 3){
   tmp <- perfMeasures(pred = pred, pred.group = pred.group, truth = truth,
-                      namePos = namePos, cutoff = cutoff, digits = digits,
+                      namePos = namePos, cutoff = cutoff,
                       measures = "SU")
-  res <- tmp[1,2]
-  names(res) <- tmp[1,1]
+  res <- tmp$value
+  names(res) <- tmp$measure
   res
 }
 NU <- function(pred, pred.group, truth, namePos, cutoff = 0.5,
                digits = 3){
   tmp <- perfMeasures(pred = pred, pred.group = pred.group, truth = truth,
-                      namePos = namePos, cutoff = cutoff, digits = digits,
+                      namePos = namePos, cutoff = cutoff,
                       measures = "NU")
-  res <- tmp[1,2]
-  names(res) <- tmp[1,1]
+  res <- tmp$value
+  names(res) <- tmp$measure
   res
 }

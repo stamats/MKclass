@@ -21,7 +21,7 @@
 \usage{
 perfMeasures(pred, pred.group, truth, namePos, cutoff = 0.5,
              weight = 0.5, wACC = weight, wLR = weight, 
-             wPV = weight, beta = 1, digits = 3, measures = "all")
+             wPV = weight, beta = 1, measures = "all")
 }
 \arguments{
   \item{pred}{ numeric values that shall be used for classification; e.g. probabilities
@@ -40,7 +40,6 @@ perfMeasures(pred, pred.group, truth, namePos, cutoff = 0.5,
   \item{wPV}{ weight used for computing the weighted predictive value, where PPV 
   is multiplied by \code{wPV} and NPV by \code{1-wPV}. Must be in [0,1].}
   \item{beta}{ beta coefficient used for computing the F beta score. Must be nonnegative.}
-  \item{digits}{ integer indicating the number of decimal places returned by applying (round).}
   \item{measures}{ character vector giving the measures that shall be computed;
   see details. Default \code{"all"} computes all measures available.}
 }
