@@ -1,5 +1,19 @@
 \name{perfMeasures}
 \alias{perfMeasures}
+\alias{ACC}\alias{PCC}\alias{FC}\alias{SMC}\alias{RSI}\alias{PMC}\alias{ER}
+\alias{FIC}\alias{BACC}\alias{BFG0}\alias{BFG1}\alias{BLR}\alias{BPV}
+\alias{CKC}\alias{CRV}\alias{CSI}\alias{DFM}\alias{DOR}\alias{DP}
+\alias{DPREV}\alias{DPp}\alias{DR}\alias{DSC}\alias{EACC}\alias{EC}
+\alias{F1S}\alias{FBS}\alias{FDR}\alias{FNR}\alias{FO}\alias{FOR}
+\alias{FPR}\alias{HR}\alias{INF}\alias{INFQR}\alias{JD}\alias{JE2}
+\alias{JSC}\alias{MARK}\alias{MCC}\alias{MI2}\alias{MR}\alias{NIR}
+\alias{NLR}\alias{NPOSTO}\alias{NPOSTP}\alias{NPREO}\alias{NPREP}
+\alias{NPV}\alias{NU}\alias{PD}\alias{PFA}\alias{PHIC}\alias{PLR}
+\alias{POSTO}\alias{POSTP}\alias{PPP}\alias{PPV}\alias{PREC}
+\alias{PREO}\alias{PREP}\alias{PREV}\alias{PROF}\alias{REC}
+\alias{RED}\alias{RPHI}\alias{SEL}\alias{SENS}\alias{SPEC}\alias{SU}
+\alias{TNR}\alias{TPR}\alias{TS}\alias{UC}\alias{VI2}\alias{WACC}
+\alias{WLR}\alias{WPV}\alias{YJS}\alias{FAR}
 \title{ Compute Performance Measures or Binary Classification }
 \description{
   The function computes various performance measures for binary classification.

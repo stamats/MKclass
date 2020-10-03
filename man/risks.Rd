@@ -24,10 +24,9 @@ risks(p0, p1)
   Vector including several risk measures.
 }
 \references{
-  See for instance:
-  Relative risk. (2016, November 4). In Wikipedia, The Free Encyclopedia.
-  Retrieved 19:58, November 4, 2016,
-  from \url{https://en.wikipedia.org/w/index.php?title=Relative_risk&oldid=747857409}
+  Porta, M. (2014). A Dictionary of Epidemiology. Oxford University Press. 
+  Retrieved 3 Oct. 2020, from 
+  \url{https://www.oxfordreference.com/view/10.1093/acref/9780199976720.001.0001/acref-9780199976720}
 }
 \author{ Matthias Kohl \email{Matthias.Kohl@stamats.de}}
 \examples{

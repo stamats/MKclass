@@ -1,5 +1,6 @@
 \name{perfScores}
 \alias{perfScores}
+\alias{BBS}\alias{BS}\alias{GINI}\alias{NBS}\alias{PBS}\alias{WBS}
 \title{ Compute Performance Scores for Binary Classification }
 \description{
   The function computes various performance scores for binary classification.
@@ -28,7 +29,7 @@ postive BS is multiplied by \code{wBS} and negative BS by \code{1-wBS}. Must be 
   The available scores are:
   area under the ROC curve (AUC), Gini index (GINI), Brier score (BS), 
   positive Brier score (PBS), negative Brier score (NBS), 
-  weighted Brier score (WBS), balanced Brier score (BBS.
+  weighted Brier score (WBS), balanced Brier score (BBS).
 
   If the predictions (\code{pred}) are not in the interval [0,1] the standard
   logistic function is applied to transform the values of \code{pred} to [0,1].
