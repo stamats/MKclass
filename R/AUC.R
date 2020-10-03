@@ -16,6 +16,7 @@ AUC <- function(x, y, group, switchAUC = TRUE){
     nx <- as.numeric(length(x))
     ny <- as.numeric(length(y))
     AUC <- (nx*ny + nx*(nx+1)/2 - sum(rank(c(x,y))[1:nx]))/(nx*ny)
+    names(AUC) <- "area under curve (AUC)"
     if(AUC < 0.5 & switchAUC){
 	dig <- getOption("digits")
 	warning("The computed AUC value ", round(AUC, dig), " will be replaced by ",
