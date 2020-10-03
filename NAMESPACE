@@ -2,6 +2,7 @@ import("stats")
 export(AUC,
        AUC.test,
        confMatrix,
+       decisionStump,
        HLgof.test,
        optCutoff,
        or2rr,

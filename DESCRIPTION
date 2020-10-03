@@ -1,5 +1,5 @@
 Package: MKclass
-Version: 0.2
+Version: 0.3
 Date: 2020-10-03
 Title: Statistical Classification
 Authors@R: person("Matthias", "Kohl", role = c("aut", "cre"),
