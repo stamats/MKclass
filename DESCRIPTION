@@ -1,6 +1,6 @@
 Package: MKclass
 Version: 0.3
-Date: 2020-10-03
+Date: 2020-10-04
 Title: Statistical Classification
 Authors@R: person("Matthias", "Kohl", role = c("aut", "cre"),
                   email = "Matthias.Kohl@stamats.de", 

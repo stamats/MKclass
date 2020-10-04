@@ -6,7 +6,7 @@
   The function computes various performance scores for binary classification.
 }
 \usage{
-perfScores(pred, truth, namePos, wBS = 0.5, scores = "all")
+perfScores(pred, truth, namePos, wBS = 0.5, scores = "all", transform = FALSE)
 }
 \arguments{
   \item{pred}{ numeric values that shall be used for classification; e.g. probabilities
@@ -17,6 +17,8 @@ perfScores(pred, truth, namePos, wBS = 0.5, scores = "all")
 postive BS is multiplied by \code{wBS} and negative BS by \code{1-wBS}. Must be in [0,1].}
   \item{scores}{ character vector giving the scores that shall be computed;
   see details. Default \code{"all"} computes all scores available.}
+  \item{transform}{ logical value indicating whether the values in \code{pred}
+  should be transformed to [0,1]; see details.}
 }
 \details{
   The function \code{perfScores} can be used to compute various performance 
@@ -30,8 +32,10 @@ postive BS is multiplied by \code{wBS} and negative BS by \code{1-wBS}. Must be 
   positive Brier score (PBS), negative Brier score (NBS), 
   weighted Brier score (WBS), balanced Brier score (BBS).
 
-  If the predictions (\code{pred}) are not in the interval [0,1] the standard
-  logistic function is applied to transform the values of \code{pred} to [0,1].
+  If the predictions (\code{pred}) are not in the interval [0,1], the various 
+  Brier scores are not valid. By setting argument \code{transform} to \code{TRUE},
+  a simple logistic regression model is fit to the provided data and the 
+  predicted values are used for the computations.
 }
 \value{
   \code{data.frame} with names of the scores and their respective values.

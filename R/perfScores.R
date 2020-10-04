@@ -1,4 +1,5 @@
-perfScores <- function(pred, truth, namePos, wBS = 0.5, scores = "all"){
+perfScores <- function(pred, truth, namePos, wBS = 0.5, scores = "all",
+                       transform = FALSE){
   stopifnot(length(pred) == length(truth))
   stopifnot(is.numeric(pred))
 
@@ -8,8 +9,15 @@ perfScores <- function(pred, truth, namePos, wBS = 0.5, scores = "all"){
   if(!is.character(namePos)) namePos <- as.character(namePos)
   stopifnot(namePos %in% levels(truth))
   
-  if(any(pred > 1) | any(pred < 0)){
-    pred <- exp(pred)/(1 + exp(pred))
+  if(any(is.na(pred)) || any(is.na(truth))){
+    warning("NA values were removed!")
+    no.NA <- !is.na(pred) & !is.na(truth)
+    pred <- pred[no.NA]
+    truth <- truth[no.NA]
+  }
+  if(transform){
+    fit <- glm(truth ~ pred, family = binomial)
+    pred <- predict(fit, type = "response")
   }
   
   scoreNames <- NULL
@@ -17,7 +25,7 @@ perfScores <- function(pred, truth, namePos, wBS = 0.5, scores = "all"){
   if(any(scores == "all")){
     scores <- c("AUC", "GINI", "BS", "PBS", "NBS", "WBS", "BBS")
   }
-  
+
   if("AUC" %in% scores){ 
     AUC <- AUC(pred, group = as.integer(truth == namePos))
     scoreNames <- c(scoreNames, "area under curve (AUC)")
@@ -30,32 +38,47 @@ perfScores <- function(pred, truth, namePos, wBS = 0.5, scores = "all"){
     scoreValues <- c(scoreValues, GINI)
   }
   if("BS" %in% scores){ 
+    if(any(pred > 1) | any(pred < 0)){
+      warning("There are predictions outside the interval [0,1]. BS is not valid!")
+    }
     BS <- mean((pred-as.integer(truth == namePos))^2)
     scoreNames <- c(scoreNames, "Brier score (BS)")
     scoreValues <- c(scoreValues, BS)
   }
   if("PBS" %in% scores){ 
+    if(any(pred > 1) | any(pred < 0)){
+      warning("There are predictions outside the interval [0,1]. PBS is not valid!")
+    }
     PBS <- mean((1-pred[truth == namePos])^2)
     scoreNames <- c(scoreNames, "positive Brier score (PBS)")
     scoreValues <- c(scoreValues, PBS)
   }
   if("NBS" %in% scores){ 
-    NBS <- mean((1-pred[truth == namePos])^2)
+    if(any(pred > 1) | any(pred < 0)){
+      warning("There are predictions outside the interval [0,1]. NBS is not valid!")
+    }
+    NBS <- mean((pred[truth != namePos])^2)
     scoreNames <- c(scoreNames, "negative Brier score (NBS)")
     scoreValues <- c(scoreValues, NBS)
   }
   if("WBS" %in% scores){ 
+    if(any(pred > 1) | any(pred < 0)){
+      warning("There are predictions outside the interval [0,1]. WBS is not valid!")
+    }
     stopifnot(length(wBS) == 1)
     if(wBS < 0 | wBS > 1) stop("'wBS' has to be in [0, 1]")
     PBS <- mean((1-pred[truth == namePos])^2)
-    NBS <- mean((1-pred[truth == namePos])^2)
+    NBS <- mean((pred[truth != namePos])^2)
     WBS <- wBS*PBS + (1-wBS)*NBS
     scoreNames <- c(scoreNames, "weighted Brier score (WBS)")
     scoreValues <- c(scoreValues, WBS)
   }
   if("BBS" %in% scores){ 
+    if(any(pred > 1) | any(pred < 0)){
+      warning("There are predictions outside the interval [0,1]. BBS is not valid!")
+    }
     PBS <- mean((1-pred[truth == namePos])^2)
-    NBS <- mean((1-pred[truth == namePos])^2)
+    NBS <- mean((pred[truth != namePos])^2)
     BBS <- 0.5*PBS + 0.5*NBS
     scoreNames <- c(scoreNames, "balanced Brier score (BBS)")
     scoreValues <- c(scoreValues, BBS)

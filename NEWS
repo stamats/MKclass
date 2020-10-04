@@ -10,6 +10,7 @@
 - Changed return value of perfMeasures and perfScores to object of respective
   class.
 - Introduced print methods for class perfMeasure and perfScore.
+- Added new argument transform to function perfScores.
 
 ###########################################################
 ## Version 0.2
