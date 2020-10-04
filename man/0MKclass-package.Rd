@@ -7,7 +7,7 @@ Statistical Classification.
 }
 \description{
 Performance measures and scores for statistical classification such as accuracy, 
-sensitivity, specificity, recall, similarity coefficiencts, AUC, GINI index, 
+sensitivity, specificity, recall, similarity coefficients, AUC, GINI index, 
 Brier score and many more. Calculation of optimal cut-offs and decision stumps 
 (Iba and Langley (1991), <doi:10.1016/B978-1-55860-247-2.50035-8>) for the all 
 implemented performance measures. Hosmer-Lemeshow goodness of fit tests 
