@@ -28,11 +28,13 @@ perfScores <- function(pred, truth, namePos, wBS = 0.5, scores = "all",
 
   if("AUC" %in% scores){ 
     AUC <- AUC(pred, group = as.integer(truth == namePos))
+    names(AUC) <- NULL
     scoreNames <- c(scoreNames, "area under curve (AUC)")
     scoreValues <- c(scoreValues, AUC)
   }
   if("GINI" %in% scores){ 
     AUC <- AUC(pred, group = as.integer(truth == namePos))
+    names(AUC) <- NULL
     GINI <- 2*AUC - 1
     scoreNames <- c(scoreNames, "Gini index (GINI)")
     scoreValues <- c(scoreValues, GINI)
