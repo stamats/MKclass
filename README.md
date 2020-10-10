@@ -23,7 +23,7 @@ number needed to treat (Porta (2014), <doi:10.1093%2Facref%2F9780199976720.001.0
 
 ```{r, eval = FALSE}
 ## Installation of CRAN version
-install.packages("MKomics")
+install.packages("MKclass")
 
 ## Install package remotes
 if(!require(remotes)) install.packages("remotes")
