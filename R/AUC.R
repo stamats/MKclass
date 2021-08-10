@@ -1,5 +1,5 @@
 ## compute AUC
-AUC <- function(x, y, group, switchAUC = TRUE){
+AUC <- function(x, y, group, switchAUC = TRUE, na.rm = TRUE){
     if(missing(y) && missing(group)){
         stop("'y' or 'group' must be specified!")
     }
@@ -10,6 +10,11 @@ AUC <- function(x, y, group, switchAUC = TRUE){
         group <- as.integer(group)-1
         y <- x[group == 1]
         x <- x[group == 0]
+    }
+    if(na.rm){
+        not.na <- !(is.na(x) | is.na(y))
+        x <- x[not.na]
+        y <- y[not.na]
     }
     x <- sort(x)
     y <- sort(y)

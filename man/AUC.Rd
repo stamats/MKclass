@@ -5,13 +5,14 @@
   The function computes AUC.
 }
 \usage{
-AUC(x, y, group, switchAUC = TRUE)
+AUC(x, y, group, switchAUC = TRUE, na.rm = TRUE)
 }
 \arguments{
   \item{x}{ numeric vector. }
   \item{y}{ numeric vector. If missing, \code{group} has to be specified.}
   \item{group}{ grouping vector or factor. }
   \item{switchAUC}{logical value. Switch AUC; see Details section.}
+  \item{na.rm}{logical value, remove \code{NA} before computation of AUC.}
 }
 \details{
   The function computes the area under the receiver operating 
