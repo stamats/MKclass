@@ -21,12 +21,12 @@ number needed to treat (Porta (2014), <doi:10.1093\%2Facref\%2F9780199976720.001
 Package: \tab MKclass\cr
 Type: \tab Package\cr
 Version: \tab 0.4\cr
-Date: \tab 2021-08-10\cr
+Date: \tab 2022-12-01\cr
 Depends: \tab R(>= 4.0.0)\cr
 Imports: \tab stats\cr
 Suggests: \tab knitr, rmarkdown, foreach, parallel, doParallel\cr
 License: \tab LGPL-3\cr
-URL: \tab https://www.stamats.de/\cr
+URL: \tab https://github.com/stamats/MKclass\cr
 }
 library(MKclass)
 }

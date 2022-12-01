@@ -85,6 +85,18 @@ perfScores <- function(pred, truth, namePos, wBS = 0.5, scores = "all",
     scoreNames <- c(scoreNames, "balanced Brier score (BBS)")
     scoreValues <- c(scoreValues, BBS)
   }
+  if("BSS" %in% scores){ 
+    if(any(pred > 1) | any(pred < 0)){
+      warning("There are predictions outside the interval [0,1]. BSS is not valid!")
+    }
+    BS <- mean((pred-as.integer(truth == namePos))^2)
+    BSref <- var(as.integer(truth == namePos))
+    BSS <- 1 - BS/BSref
+    scoreNames <- c(scoreNames, "Brier skill score (BSS)")
+    scoreValues <- c(scoreValues, BSS)
+  }
+  ## add REL, RES, UNC, CAL, REF
+  ## https://en.wikipedia.org/wiki/Brier_score
 
   ## https://scikit-learn.org/stable/modules/model_evaluation.html
   ## https://en.wikipedia.org/wiki/Loss_functions_for_classification
@@ -138,6 +150,13 @@ WBS <- function(pred, truth, namePos, wBS = 0.5){
 BBS <- function(pred, truth, namePos){
   tmp <- perfScores(pred = pred, truth = truth, namePos = namePos, 
                     scores = "BBS")
+  res <- tmp$value
+  names(res) <- tmp$score
+  res
+}
+BSS <- function(pred, truth, namePos){
+  tmp <- perfScores(pred = pred, truth = truth, namePos = namePos, 
+                    scores = "BSS")
   res <- tmp$value
   names(res) <- tmp$score
   res

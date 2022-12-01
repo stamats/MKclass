@@ -12,10 +12,11 @@ AUC <- function(x, y, group, switchAUC = TRUE, na.rm = TRUE){
         x <- x[group == 0]
     }
     if(na.rm){
-        not.na <- !(is.na(x) | is.na(y))
-        x <- x[not.na]
-        y <- y[not.na]
+        x <- x[!is.na(x)]
+        y <- y[!is.na(y)]
     }
+    if(all(is.na(x)) || all(is.na(y))) return(NA)
+    
     x <- sort(x)
     y <- sort(y)
     nx <- as.numeric(length(x))
