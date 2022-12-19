@@ -1,4 +1,4 @@
-# MKclass
+# <img src="https://github.com/stamats/MKomics/raw/master/hex-MKclass.png" alt="MKclass" width="120"/> &emsp; MKclass
 The repository includes the development version of R package MKclass
 
 [![License: LGPL v3](https://img.shields.io/badge/License-LGPL%20v3-blue.svg)](https://www.gnu.org/licenses/lgpl-3.0)
