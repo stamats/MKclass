@@ -13,7 +13,8 @@ decisionStump(pred, truth, namePos, perfMeasure = "YJS",
   \item{pred}{ numeric values that shall be used for classification; e.g. probabilities
   to belong to the positive group. }
   \item{truth}{ true grouping vector or factor. }
-  \item{namePos}{ value representing the positive group.}
+  \item{namePos}{ value representing the positive group; i.e., the name of the 
+  category where one expects higher values for \code{pred}.}
   \item{perfMeasure}{ a single performance measure computed by function \code{perfMeasure}.}
   \item{MAX}{logical value. Whether to maximize or minimize the performacne
   measure.}
@@ -31,6 +32,11 @@ decisionStump(pred, truth, namePos, perfMeasure = "YJS",
   \code{perfMeasures}. Of course, for several of them the computation is 
   not really usefull such as sensitivity or specificity where one will get
   trivial decision rules. 
+  
+  In addition, a decision stump will only give a meaningful result if there is
+  a monotone relationship between the two categories and the numeric values 
+  given in \code{pred}. In such a case the name of the category where one expects 
+  higher values should be given in \code{namePos}.
 }
 \value{
   Object of class \code{decisionStump}.

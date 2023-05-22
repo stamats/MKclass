@@ -3,6 +3,14 @@
 ###############################################################################
 
 ###########################################################
+## Version 0.5
+###########################################################
+- renamed return values of AUC.test from variable to model
+- added further explanations in the documentation of decision stump as 
+  suggested by Ondrej Such
+
+
+###########################################################
 ## Version 0.4
 ###########################################################
 - added na.rm argument to function AUC.
