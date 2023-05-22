@@ -63,7 +63,7 @@ AUC.test <- function(pred1, lab1, pred2, lab2, conf.level = 0.95, paired = FALSE
                  data.name = dname)
     class(rval) <- "htest"
 
-    list(Variable1 = res1, Variable2 = res2, Test = rval)
+    list(Model1 = res1, Model2 = res2, Test = rval)
 }
 
 .seAUC <- function(AUC, npos, nneg){
