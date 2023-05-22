@@ -1,6 +1,6 @@
 \name{perfScores}
 \alias{perfScores}
-\alias{BBS}\alias{BS}\alias{GINI}\alias{NBS}\alias{PBS}\alias{WBS}
+\alias{BBS}\alias{BS}\alias{GINI}\alias{NBS}\alias{PBS}\alias{WBS}\alias{BSS}
 \title{ Compute Performance Scores for Binary Classification }
 \description{
   The function computes various performance scores for binary classification.
