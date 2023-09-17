@@ -17,17 +17,6 @@ Statistical and epidemiological risk measures such as relative risk, odds ratio,
 number needed to treat (Porta (2014), <doi:10.1093\%2Facref\%2F9780199976720.001.0001>).
 }
 \details{
-\tabular{ll}{
-Package: \tab MKclass\cr
-Type: \tab Package\cr
-Version: \tab 0.5\cr
-Date: \tab 2023-05-22\cr
-Depends: \tab R(>= 4.0.0)\cr
-Imports: \tab stats\cr
-Suggests: \tab knitr, rmarkdown, foreach, parallel, doParallel\cr
-License: \tab LGPL-3\cr
-URL: \tab https://github.com/stamats/MKclass\cr
-}
 library(MKclass)
 }
 \author{ Matthias Kohl \url{https://www.stamats.de}

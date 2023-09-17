@@ -8,6 +8,7 @@
 - renamed return values of AUC.test from variable to model
 - added further explanations in the documentation of decision stump as 
   suggested by Ondrej Such
+- removed DESCRIPTION table in package Rd-file
 
 
 ###########################################################
